@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>neilbuilds</title>
   <meta name="description" content="Neil B. — building small, fun web apps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -54,15 +57,57 @@
       color: #f5f5f5;
       text-decoration: none;
       padding: 0.5rem 0;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s ease;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
       width: fit-content;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      position: relative;
+      border-bottom: none;
     }
-    .links a:hover { border-color: #f5f5f5; }
+    .links a::before {
+      content: "→";
+      color: #555;
+      transition: transform 0.2s ease, color 0.2s ease;
+      display: inline-block;
+    }
+    .links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0.25rem;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #f5f5f5;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .links a:hover::before {
+      color: #f5f5f5;
+      transform: translateX(3px);
+    }
+    .links a:hover::after {
+      transform: scaleX(1);
+    }
     .links span.soon {
       color: #555;
       font-style: italic;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    .tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      background: #1a1a1a;
+      color: #888;
+      border: 1px solid #2a2a2a;
+      font-weight: 500;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     }
     footer {
       margin-top: 2rem;
@@ -83,17 +128,17 @@
     <div class="section">
       <h2>Movies</h2>
       <div class="links">
-        <a href="https://patriot.neilbuilds.com">Patriot — US Release</a>
-        <a href="https://patriot-mission2.vercel.app/">Patriot — The Game</a>
-        <a href="https://drishyam3.neilbuilds.com">Drishyam 3 — US Release</a>
+        <a href="https://patriot.neilbuilds.com" target="_blank" rel="noopener">Patriot — US Release</a>
+        <a href="https://patriot-mission2.vercel.app/" target="_blank" rel="noopener">Patriot — The Game</a>
+        <a href="https://drishyam3.neilbuilds.com" target="_blank" rel="noopener">Drishyam 3 — US Release</a>
       </div>
     </div>
 
     <div class="section">
-      <h2>Red Bull</h2>
+      <h2>RB</h2>
       <div class="links">
-        <a href="https://rbpitwall.lovable.app/">Pit Wall</a>
-        <a href=" rbna-ai-buildday.vercel.app">AI Build Day — Judge Site</a>
+        <a href="https://rbpitwall.lovable.app/" target="_blank" rel="noopener">Pit Wall <span class="tag">internal</span></a>
+        <a href="https://rbna-ai-buildday.vercel.app" target="_blank" rel="noopener">AI Build Day — Judge Site <span class="tag">internal</span></a>
       </div>
     </div>
 
@@ -106,7 +151,7 @@
     </div>
 
     <footer>
-      <a href="https://github.com/neilbuilds">github</a>
+      <a href="https://github.com/neilbuilds" target="_blank" rel="noopener">github</a>
     </footer>
   </div>
 </body>
