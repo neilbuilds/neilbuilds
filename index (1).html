@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neilbuilds</title>
+  <meta name="description" content="Neil B. — building small, fun web apps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container { max-width: 640px; width: 100%; }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 0%, #888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    p.tagline {
+      font-size: 1.25rem;
+      color: #a0a0a0;
+      margin-bottom: 3rem;
+    }
+    .section {
+      border-top: 1px solid #222;
+      padding: 1.75rem 0;
+    }
+    .section h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .links a, .links span {
+      color: #f5f5f5;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      width: fit-content;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      position: relative;
+      border-bottom: none;
+    }
+    .links a::before {
+      content: "→";
+      color: #555;
+      transition: transform 0.2s ease, color 0.2s ease;
+      display: inline-block;
+    }
+    .links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0.25rem;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #f5f5f5;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .links a:hover::before {
+      color: #f5f5f5;
+      transform: translateX(3px);
+    }
+    .links a:hover::after {
+      transform: scaleX(1);
+    }
+    .links span.soon {
+      color: #555;
+      font-style: italic;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    .tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      background: #1a1a1a;
+      color: #888;
+      border: 1px solid #2a2a2a;
+      font-weight: 500;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #555;
+      border-top: 1px solid #222;
+      padding-top: 1.5rem;
+    }
+    footer a { color: #888; text-decoration: none; border-bottom: 1px solid #333; }
+    footer a:hover { color: #f5f5f5; border-color: #f5f5f5; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>neilbuilds</h1>
+    <p class="tagline">Small, fun web apps. Data + AI by day, side projects by night.</p>
+
+    <div class="section">
+      <h2>Movies</h2>
+      <div class="links">
+        <a href="https://d3.neilbuilds.com/" target="_blank" rel="noopener">Drishyam 3 — US Release</a>
+        <a href="https://d3.neilbuilds.com/game.html" target="_blank" rel="noopener">Drishyam 3 — The Game</a>
+        <a href="https://patriot.neilbuilds.com" target="_blank" rel="noopener">Patriot — US Release</a>
+        <a href="https://patriot-mission2.vercel.app/" target="_blank" rel="noopener">Patriot — The Game</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Builds</h2>
+      <div class="links">
+        <a href="https://biblequiz.neilbuilds.com" target="_blank" rel="noopener">Bible Quiz</a>
+        <a href="https://antorubytravel.vercel.app/" target="_blank" rel="noopener">Travel Itinerary Builder</a>
+        <a href="https://littlelightco.lovable.app" target="_blank" rel="noopener">Little Light Co — Candle Website</a>
+        <a href="https://aangan-home-hub.lovable.app" target="_blank" rel="noopener">Aangan TV Android App</a>
+        <a href="https://manx-bom-command.lovable.app" target="_blank" rel="noopener">Meyers Manx BOM Intelligence Website</a>
+        <a href="https://ppl.neilbuilds.com/" target="_blank" rel="noopener">Pilot License Test App</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>GPT Agents</h2>
+      <div class="links">
+        <a href="https://chatgpt.com/g/g-69e534b20ca88191b591fe06a5335966-prompt-architect" target="_blank" rel="noopener">GPT Agent Prompt Generator</a>
+        <a href="https://chatgpt.com/g/g-69deaf921bc481918caec808eb61e028-birthday-art-gpt" target="_blank" rel="noopener">GPT Agent for Birthday Greetings</a>
+        <a href="https://linkmone.com/VISHU" target="_blank" rel="noopener">GPT Agent for Custom Vishu Greetings</a>
+        <a href="https://linkmone.com/VOLT" target="_blank" rel="noopener">GPT Agent for Red Bull Style Cartoon Headshots</a>
+        <a href="https://chatgpt.com/g/g-69fd7a1e72bc8191a2cb1d575a64572f-drishyam-noir" target="_blank" rel="noopener">Drishyam Noir — Image Generator</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>RB</h2>
+      <div class="links">
+        <a href="https://rbpitwall.lovable.app/" target="_blank" rel="noopener">Pit Wall <span class="tag">internal</span></a>
+        <a href="https://rbna-ai-buildday.vercel.app" target="_blank" rel="noopener">AI Build Day — Judge Site <span class="tag">internal</span></a>
+        <a href="https://rbna.it/aibuild" target="_blank" rel="noopener">AI Build Day Results</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="https://github.com/neilbuilds" target="_blank" rel="noopener">github</a>
+    </footer>
+  </div>
+</body>
+</html>
