@@ -1,171 +1,834 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neilbuilds</title>
-  <meta name="description" content="Neil B. — building small, fun web apps." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      background: #0a0a0a;
-      color: #f5f5f5;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      line-height: 1.6;
-    }
-    .container { max-width: 640px; width: 100%; }
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #fff 0%, #888 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    p.tagline {
-      font-size: 1.25rem;
-      color: #a0a0a0;
-      margin-bottom: 3rem;
-    }
-    .section {
-      border-top: 1px solid #222;
-      padding: 1.75rem 0;
-    }
-    .section h2 {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #666;
-      margin-bottom: 1rem;
-    }
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .links a, .links span {
-      color: #f5f5f5;
-      text-decoration: none;
-      padding: 0.5rem 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      width: fit-content;
-      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-      position: relative;
-      border-bottom: none;
-    }
-    .links a::before {
-      content: "→";
-      color: #555;
-      transition: transform 0.2s ease, color 0.2s ease;
-      display: inline-block;
-    }
-    .links a::after {
-      content: "";
-      position: absolute;
-      bottom: 0.25rem;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: #f5f5f5;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-    .links a:hover::before {
-      color: #f5f5f5;
-      transform: translateX(3px);
-    }
-    .links a:hover::after {
-      transform: scaleX(1);
-    }
-    .links span.soon {
-      color: #555;
-      font-style: italic;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-    .tag {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.15rem 0.5rem;
-      border-radius: 3px;
-      background: #1a1a1a;
-      color: #888;
-      border: 1px solid #2a2a2a;
-      font-weight: 500;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #555;
-      border-top: 1px solid #222;
-      padding-top: 1.5rem;
-    }
-    footer a { color: #888; text-decoration: none; border-bottom: 1px solid #333; }
-    footer a:hover { color: #f5f5f5; border-color: #f5f5f5; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>neilbuilds</h1>
-    <p class="tagline">Small, fun web apps. Data + AI by day, side projects by night.</p>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 
-    <div class="section">
-      <h2>Movies</h2>
-      <div class="links">
-        <a href="https://patriot.neilbuilds.com" target="_blank" rel="noopener">Patriot — US Release</a>
-        <a href="https://patriot-mission2.vercel.app/" target="_blank" rel="noopener">Patriot — The Game</a>
-        <a href="https://d3.neilbuilds.com/" target="_blank" rel="noopener">Drishyam 3 — US Release</a>
-        <a href="https://d3.neilbuilds.com/game.html" target="_blank" rel="noopener">Drishyam 3 — The Game</a>
-      </div>
+:root{
+  --font-sans:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-serif:"Libre Baskerville",Georgia,serif;
+  --color-background-primary:#fffaf1;
+  --color-background-secondary:#f3ecdf;
+  --color-border-secondary:#d9c9b3;
+  --color-border-tertiary:#e5d9c7;
+  --color-text-primary:#1c2633;
+  --color-text-secondary:#6d655b;
+  --navy:#183247;
+  --navy-2:#254b68;
+  --brass:#a87932;
+  --brass-soft:#f7ead1;
+  --sky:#2f78a8;
+  --sage:#587946;
+  --ruby:#9b3d37;
+  --paper:#fffaf1;
+  --shadow-sm:0 10px 25px rgba(38,31,21,.08);
+  --shadow-md:0 22px 55px rgba(38,31,21,.14);
+  --border-radius-md:10px;
+  --border-radius-lg:12px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{min-height:100%;}
+body{
+  min-height:100%;
+  font-family:var(--font-sans);
+  background:
+    linear-gradient(135deg,rgba(24,50,71,.055) 25%,transparent 25%) 0 0/18px 18px,
+    linear-gradient(315deg,rgba(168,121,50,.055) 25%,transparent 25%) 0 0/18px 18px,
+    #efe7d8;
+  color:var(--color-text-primary);
+  letter-spacing:0;
+}
+button{font:inherit;}
+.app{
+  max-width:440px;
+  margin:0 auto;
+  padding:1rem 1rem 2rem;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:16px;
+  margin-bottom:1rem;
+  background:linear-gradient(145deg,#14283a,#244963);
+  box-shadow:var(--shadow-md);
+  color:#fffaf1;
+}
+.logo{display:flex;align-items:center;gap:10px;min-width:0;}
+.logo-icon{
+  width:38px;
+  height:38px;
+  background:linear-gradient(145deg,#bd8d42,#8e6427);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff9eb;
+  font-size:18px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 18px rgba(0,0,0,.18);
+}
+.logo-name{
+  font-family:var(--font-serif);
+  font-size:18px;
+  line-height:1.1;
+  font-weight:700;
+  color:#fffaf1;
+}
+.logo-count{font-size:11px;color:#dccfbf;margin-top:3px;}
+.pill-nav{
+  display:flex;
+  gap:4px;
+  background:rgba(255,250,241,.11);
+  border:1px solid rgba(255,250,241,.13);
+  border-radius:999px;
+  padding:4px;
+  flex-shrink:0;
+}
+.pill{
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  border:none;
+  background:transparent;
+  color:#e6dbca;
+  transition:background .18s ease,color .18s ease,box-shadow .18s ease;
+}
+.pill.active{
+  background:#fffaf1;
+  color:#1f3548;
+  box-shadow:0 4px 12px rgba(0,0,0,.13);
+}
+
+.stats-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:1rem;}
+.stat{
+  background:rgba(255,250,241,.88);
+  border:1px solid rgba(217,201,179,.82);
+  border-radius:12px;
+  padding:13px 14px;
+  box-shadow:var(--shadow-sm);
+}
+.stat-lbl{
+  font-size:10px;
+  color:var(--color-text-secondary);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:5px;
+  font-weight:700;
+}
+.stat-val{
+  font-family:var(--font-serif);
+  font-size:28px;
+  line-height:1;
+  font-weight:700;
+}
+.sky{color:var(--sky);} .grn{color:var(--sage);} .amb{color:var(--brass);} .red{color:var(--ruby);}
+
+.mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:1rem;}
+.mode-card{
+  padding:15px;
+  background:rgba(255,250,241,.92);
+  border:1px solid rgba(217,201,179,.88);
+  border-radius:12px;
+  cursor:pointer;
+  text-align:left;
+  min-height:108px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:var(--shadow-sm);
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+}
+.mode-card:hover{transform:translateY(-1px);border-color:#c3a36a;}
+.mode-card.selected{
+  border:1.5px solid var(--brass);
+  background:linear-gradient(180deg,#fff8ec,#f6e9d0);
+  box-shadow:0 16px 35px rgba(95,67,28,.15);
+}
+.mode-card.selected .mode-icon{color:var(--brass);}
+.mode-card.selected .mode-name{color:#2d3440;}
+.mode-icon{font-size:22px;color:var(--navy-2);margin-bottom:8px;}
+.mode-name{
+  font-family:var(--font-serif);
+  font-size:15px;
+  font-weight:700;
+  line-height:1.25;
+}
+.mode-desc{font-size:11px;color:var(--color-text-secondary);line-height:1.45;margin-top:5px;}
+
+.sec-lbl{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#7a6040;
+  margin:1rem 0 8px;
+  font-weight:800;
+}
+.cat-scroll{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:1px 0 8px;
+  margin-bottom:1rem;
+  scrollbar-width:none;
+}
+.cat-scroll::-webkit-scrollbar{display:none;}
+.chip{
+  padding:8px 13px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  border:1px solid rgba(217,201,179,.9);
+  background:rgba(255,250,241,.88);
+  color:#554c42;
+  white-space:nowrap;
+  transition:all .18s ease;
+}
+.chip:hover{border-color:#b89455;color:#2f3742;}
+.chip.active{
+  background:var(--navy);
+  color:#fffaf1;
+  border-color:var(--navy);
+  box-shadow:0 10px 22px rgba(24,50,71,.18);
+}
+
+.big-btn,.ghost-btn,.sm-btn{
+  min-height:46px;
+  cursor:pointer;
+  transition:transform .12s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease;
+}
+.big-btn{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:800;
+  border:1px solid #153044;
+  background:linear-gradient(145deg,#1f435d,#142c40);
+  color:#fffaf1;
+  margin-bottom:9px;
+  box-shadow:0 16px 30px rgba(24,50,71,.22);
+}
+.big-btn:hover{box-shadow:0 18px 36px rgba(24,50,71,.28);}
+.big-btn:active,.ghost-btn:active,.sm-btn:active{transform:translateY(1px);}
+.ghost-btn{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:700;
+  border:1px solid rgba(185,157,113,.8);
+  background:rgba(255,250,241,.8);
+  color:#4f4438;
+}
+.ghost-btn:hover{background:#fffaf1;border-color:#a87932;}
+
+.flashcard-wrap{perspective:1100px;margin-bottom:1rem;}
+.flashcard{
+  min-height:300px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.54),rgba(255,255,255,0) 44%),
+    var(--paper);
+  border:1px solid rgba(203,184,154,.95);
+  border-radius:18px;
+  padding:1.6rem;
+  cursor:pointer;
+  position:relative;
+  transition:transform .48s ease,box-shadow .2s ease;
+  transform-style:preserve-3d;
+  box-shadow:var(--shadow-md);
+}
+.flashcard:hover{box-shadow:0 26px 60px rgba(38,31,21,.17);}
+.flashcard.flipped{transform:rotateY(180deg);}
+.card-face{backface-visibility:hidden;}
+.card-back{
+  position:absolute;
+  inset:0;
+  padding:1.6rem;
+  backface-visibility:hidden;
+  transform:rotateY(180deg);
+  display:flex;
+  flex-direction:column;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fffaf1,#f6eddf);
+}
+.card-cat{
+  font-size:10px;
+  color:#8b6a3d;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:.85rem;
+  font-weight:800;
+  padding-right:56px;
+}
+.card-q{
+  font-family:var(--font-serif);
+  font-size:20px;
+  font-weight:700;
+  line-height:1.55;
+  margin-bottom:1.2rem;
+  color:#1c2633;
+}
+.tap-hint{font-size:13px;color:#766b5e;display:flex;align-items:center;gap:6px;margin-top:auto;}
+.card-ans{
+  font-family:var(--font-serif);
+  font-size:18px;
+  line-height:1.45;
+  font-weight:700;
+  color:var(--sage);
+  margin-bottom:.6rem;
+}
+.card-exp{font-size:13px;line-height:1.72;color:#5f574f;flex:1;overflow:auto;}
+.card-ref{
+  font-size:11px;
+  color:#7b7167;
+  border-top:1px solid rgba(217,201,179,.85);
+  padding-top:11px;
+  margin-top:12px;
+}
+.card-counter{
+  position:absolute;
+  top:16px;
+  right:17px;
+  font-size:12px;
+  font-weight:800;
+  color:#7d6a54;
+  background:#f4ead9;
+  border:1px solid #dfcfb8;
+  border-radius:999px;
+  padding:4px 9px;
+}
+.faa-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--brass);margin-right:6px;vertical-align:middle;}
+
+.rate-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:1rem;}
+.rate-btn{
+  padding:12px 4px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  border:1px solid rgba(217,201,179,.9);
+  background:rgba(255,250,241,.88);
+  color:#5d544b;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+}
+.rate-btn i{font-size:18px;}
+.rate-btn:active{transform:scale(.97);}
+.rate-btn.again{background:#f9e5e0;border-color:#e7b5ab;color:var(--ruby);}
+.rate-btn.hard{background:#eee7dc;color:#5f574f;}
+.rate-btn.good{background:#e6f0f4;border-color:#b4cedb;color:var(--sky);}
+.rate-btn.easy{background:#e7efd9;border-color:#c3d5a7;color:var(--sage);}
+
+.qprog-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.pbar{flex:1;height:7px;background:#ded2c1;border-radius:999px;overflow:hidden;}
+.pfill{height:100%;background:linear-gradient(90deg,var(--brass),var(--sky));border-radius:999px;transition:width .3s ease;}
+.pcount,.ptimer{font-size:12px;color:#675f56;white-space:nowrap;font-weight:800;}
+.ptimer{min-width:44px;text-align:right;color:#24394d;}
+
+.qcat{
+  font-size:10px;
+  color:#8b6a3d;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:800;
+}
+.faa-badge{font-size:10px;background:#f5e4c4;color:#7a541e;padding:3px 7px;border-radius:999px;}
+.quiz-q{
+  font-family:var(--font-serif);
+  font-size:19px;
+  font-weight:700;
+  line-height:1.55;
+  margin-bottom:1.25rem;
+}
+.opts{display:flex;flex-direction:column;gap:9px;margin-bottom:1rem;}
+.opt{
+  padding:14px;
+  border-radius:11px;
+  border:1px solid rgba(217,201,179,.92);
+  cursor:pointer;
+  font-size:14px;
+  line-height:1.45;
+  background:rgba(255,250,241,.9);
+  color:var(--color-text-primary);
+  text-align:left;
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  min-height:52px;
+  box-shadow:0 8px 18px rgba(38,31,21,.06);
+}
+.opt:hover:not(:disabled){border-color:#b89455;background:#fffaf1;}
+.opt:active:not(:disabled){background:#f5ecde;}
+.opt.correct{background:#e7efd9;border-color:#a9c283;color:#314f24;}
+.opt.wrong{background:#f9e5e0;border-color:#df9c92;color:#7a2d28;}
+.opt:disabled{cursor:default;}
+.opt-ltr{
+  font-weight:800;
+  min-width:24px;
+  height:24px;
+  border-radius:50%;
+  background:#efe2cf;
+  color:#73542a;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.expl{
+  background:#f7ead1;
+  border-radius:12px;
+  padding:13px 14px;
+  font-size:13px;
+  line-height:1.65;
+  margin-bottom:1rem;
+  border-left:4px solid var(--brass);
+  display:none;
+  color:#4e4336;
+}
+.expl.show{display:block;}
+
+.results-card{
+  background:linear-gradient(180deg,#fffaf1,#f4eadb);
+  border:1px solid rgba(203,184,154,.95);
+  border-radius:18px;
+  padding:1.6rem;
+  text-align:center;
+  box-shadow:var(--shadow-md);
+}
+.result-pct{
+  font-family:var(--font-serif);
+  font-size:62px;
+  line-height:1;
+  font-weight:700;
+  margin:.55rem 0;
+}
+.result-pass{color:var(--sage);} .result-fail{color:var(--ruby);}
+.result-msg{font-size:14px;color:var(--color-text-secondary);margin-bottom:1.5rem;}
+.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:1.5rem;}
+.result-item{
+  background:rgba(255,250,241,.8);
+  border:1px solid rgba(217,201,179,.8);
+  border-radius:11px;
+  padding:13px 10px;
+}
+.result-lbl{font-size:10px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:800;}
+.result-val{font-family:var(--font-serif);font-size:23px;font-weight:700;}
+.btn-row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;}
+.sm-btn{
+  padding:11px 8px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:800;
+  border:1px solid rgba(185,157,113,.8);
+  background:rgba(255,250,241,.86);
+  color:#342e27;
+}
+.sm-btn.pri{background:var(--navy);color:#fffaf1;border-color:var(--navy);}
+
+.quiz-set-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+.set-card{
+  background:rgba(255,250,241,.9);
+  border:1px solid rgba(217,201,179,.88);
+  border-radius:12px;
+  padding:14px 10px;
+  cursor:pointer;
+  text-align:center;
+  box-shadow:var(--shadow-sm);
+}
+.set-card.sel{border:1.5px solid var(--brass);background:#f7ead1;}
+.set-num{font-family:var(--font-serif);font-size:26px;line-height:1;font-weight:700;color:var(--navy);}
+.set-lbl{font-size:12px;color:var(--color-text-secondary);margin-top:5px;}
+
+.hidden{display:none!important;}
+.note{
+  background:#f7ead1;
+  border:1px solid #e6cc9d;
+  border-radius:12px;
+  padding:11px 12px;
+  font-size:12px;
+  color:#634b2b;
+  margin-bottom:1rem;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  line-height:1.55;
+}
+
+@media (max-width:390px){
+  .app{padding:.75rem .75rem 1.5rem;}
+  .topbar{align-items:flex-start;flex-direction:column;}
+  .pill-nav{width:100%;justify-content:space-between;}
+  .pill{flex:1;}
+  .card-q,.quiz-q{font-size:18px;}
+  .flashcard{min-height:285px;}
+}
+</style>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">PPL Trainer — Private Pilot License flashcard and quiz app</h2>
+
+<div class="app">
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon"><i class="ti ti-plane" aria-hidden="true"></i></div>
+    <div>
+      <div class="logo-name">PPL Trainer</div>
+      <div class="logo-count">96 questions</div>
     </div>
-
-    <div class="section">
-      <h2>RB</h2>
-      <div class="links">
-        <a href="https://rbpitwall.lovable.app/" target="_blank" rel="noopener">Pit Wall <span class="tag">internal</span></a>
-        <a href="https://rbna-ai-buildday.vercel.app" target="_blank" rel="noopener">AI Build Day — Judge Site <span class="tag">internal</span></a>
-        <a href="https://rbna.it/aibuild" target="_blank" rel="noopener">AI Build Day Results</a>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>GPT Agents</h2>
-      <div class="links">
-        <a href="https://chatgpt.com/g/g-69e534b20ca88191b591fe06a5335966-prompt-architect" target="_blank" rel="noopener">GPT Agent Prompt Generator</a>
-        <a href="https://chatgpt.com/g/g-69deaf921bc481918caec808eb61e028-birthday-art-gpt" target="_blank" rel="noopener">GPT Agent for Birthday Greetings</a>
-        <a href="https://linkmone.com/VISHU" target="_blank" rel="noopener">GPT Agent for Custom Vishu Greetings</a>
-        <a href="https://linkmone.com/VOLT" target="_blank" rel="noopener">GPT Agent for Red Bull Style Cartoon Headshots</a>
-        <a href="https://chatgpt.com/g/g-69fd7a1e72bc8191a2cb1d575a64572f-drishyam-noir" target="_blank" rel="noopener">Drishyam Noir — Image Generator</a>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Builds</h2>
-      <div class="links">
-        <a href="https://biblequiz.neilbuilds.com" target="_blank" rel="noopener">Bible Quiz</a>
-        <span class="soon">Pilot License Test App — coming soon</span>
-      </div>
-    </div>
-
-    <footer>
-      <a href="https://github.com/neilbuilds" target="_blank" rel="noopener">github</a>
-    </footer>
   </div>
-</body>
-</html>
+  <div class="pill-nav">
+    <button class="pill active" onclick="showTab('home')" aria-label="Home">Home</button>
+    <button class="pill" onclick="showTab('flash')" aria-label="Flashcards">Cards</button>
+    <button class="pill" onclick="showTab('quiz')" aria-label="Quiz">Quiz</button>
+  </div>
+</div>
+
+<div id="tab-home">
+  <div class="stats-row">
+    <div class="stat"><div class="stat-lbl">Studied</div><div class="stat-val sky" id="s-studied">0</div></div>
+    <div class="stat"><div class="stat-lbl">Correct</div><div class="stat-val grn" id="s-pct">–</div></div>
+    <div class="stat"><div class="stat-lbl">Streak</div><div class="stat-val amb" id="s-streak">0</div></div>
+    <div class="stat"><div class="stat-lbl">Due</div><div class="stat-val" id="s-due">0</div></div>
+  </div>
+
+  <div class="sec-lbl">Choose mode</div>
+  <div class="mode-grid">
+    <div class="mode-card selected" onclick="selMode('flash',this)">
+      <div><div class="mode-icon"><i class="ti ti-cards" aria-hidden="true"></i></div><div class="mode-name">Flashcards</div><div class="mode-desc">Spaced repetition review</div></div>
+    </div>
+    <div class="mode-card" onclick="selMode('quiz',this)">
+      <div><div class="mode-icon"><i class="ti ti-writing" aria-hidden="true"></i></div><div class="mode-name">Practice quiz</div><div class="mode-desc">Multiple choice + explanations</div></div>
+    </div>
+    <div class="mode-card" onclick="selMode('weak',this)">
+      <div><div class="mode-icon"><i class="ti ti-target" aria-hidden="true"></i></div><div class="mode-name">Weak areas</div><div class="mode-desc">Drill your missed questions</div></div>
+    </div>
+    <div class="mode-card" onclick="selMode('sim',this)">
+      <div><div class="mode-icon"><i class="ti ti-clipboard-check" aria-hidden="true"></i></div><div class="mode-name">Full sim (60Q)</div><div class="mode-desc">Simulate the real PAR test</div></div>
+    </div>
+  </div>
+
+  <div class="sec-lbl">Filter by category</div>
+  <div class="cat-scroll" id="home-cats"></div>
+
+  <button class="big-btn" onclick="startSelMode()">Start session <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  <button class="ghost-btn" onclick="resetProg()"><i class="ti ti-refresh" aria-hidden="true"></i> Reset progress</button>
+</div>
+
+<div id="tab-flash" class="hidden">
+  <div class="cat-scroll" id="flash-cats"></div>
+  <div class="flashcard-wrap">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="card-face">
+        <div class="card-cat" id="fc-cat">Category</div>
+        <div class="card-q" id="fc-q">Loading…</div>
+        <div class="tap-hint"><i class="ti ti-hand-finger" aria-hidden="true" style="font-size:15px;"></i> Tap to reveal answer</div>
+      </div>
+      <div class="card-back">
+        <div class="card-cat" id="fc-cat2">Answer</div>
+        <div class="card-ans" id="fc-ans"></div>
+        <div class="card-exp" id="fc-exp"></div>
+        <div class="card-ref" id="fc-ref"></div>
+      </div>
+      <div class="card-counter" id="fc-num">1/96</div>
+    </div>
+  </div>
+  <div class="rate-row">
+    <button class="rate-btn again" onclick="rateCard(1)" aria-label="Again"><i class="ti ti-x" aria-hidden="true"></i>Again</button>
+    <button class="rate-btn hard" onclick="rateCard(2)" aria-label="Hard"><i class="ti ti-minus" aria-hidden="true"></i>Hard</button>
+    <button class="rate-btn good" onclick="rateCard(3)" aria-label="Good"><i class="ti ti-check" aria-hidden="true"></i>Good</button>
+    <button class="rate-btn easy" onclick="rateCard(4)" aria-label="Easy"><i class="ti ti-star" aria-hidden="true"></i>Easy</button>
+  </div>
+  <button class="ghost-btn" onclick="showTab('home')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+</div>
+
+<div id="tab-quiz" class="hidden">
+  <div id="quiz-setup">
+    <div class="sec-lbl">Category</div>
+    <div class="cat-scroll" id="quiz-cats"></div>
+    <div class="sec-lbl">Questions</div>
+    <div class="quiz-set-row" id="q-count-grid">
+      <div class="set-card sel" data-n="10" onclick="selCount(this)"><div class="set-num">10</div><div class="set-lbl">Quick drill</div></div>
+      <div class="set-card" data-n="20" onclick="selCount(this)"><div class="set-num">20</div><div class="set-lbl">Standard</div></div>
+      <div class="set-card" data-n="40" onclick="selCount(this)"><div class="set-num">40</div><div class="set-lbl">Extended</div></div>
+      <div class="set-card" data-n="60" onclick="selCount(this)"><div class="set-num">60</div><div class="set-lbl">Full test</div></div>
+    </div>
+    <div class="note"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:16px;flex-shrink:0;margin-top:1px;"></i><span>Questions marked <strong>FAA</strong> come directly from the official FAA PAR sample set.</span></div>
+    <button class="big-btn" onclick="startQuiz()">Start quiz <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    <button class="ghost-btn" style="margin-top:8px;" onclick="showTab('home')"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+  </div>
+
+  <div id="quiz-active" class="hidden">
+    <div class="qprog-row">
+      <div class="pbar"><div class="pfill" id="q-pf" style="width:0%"></div></div>
+      <div class="pcount" id="q-cl">1/20</div>
+      <div class="ptimer" id="q-timer"></div>
+    </div>
+    <div class="qcat"><span id="q-cat">Category</span><span id="q-faa"></span></div>
+    <div class="quiz-q" id="q-q">Question</div>
+    <div class="opts" id="q-opts"></div>
+    <div class="expl" id="q-expl"></div>
+    <button class="big-btn hidden" id="q-next" onclick="nextQ()">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+
+  <div id="quiz-results" class="hidden">
+    <div class="results-card">
+      <div style="font-size:12px;color:var(--color-text-secondary);">Quiz complete</div>
+      <div class="result-pct" id="r-pct"></div>
+      <div class="result-msg" id="r-msg"></div>
+      <div class="result-grid">
+        <div class="result-item"><div class="result-lbl">Correct</div><div class="result-val grn" id="r-corr">0</div></div>
+        <div class="result-item"><div class="result-lbl">Wrong</div><div class="result-val red" id="r-wrong">0</div></div>
+        <div class="result-item"><div class="result-lbl">Time</div><div class="result-val sky" id="r-time">0:00</div></div>
+        <div class="result-item"><div class="result-lbl">Pass mark</div><div class="result-val">70%</div></div>
+      </div>
+      <div class="btn-row3">
+        <button class="sm-btn pri" onclick="startQuiz()">Retry</button>
+        <button class="sm-btn" onclick="showQSetup()">New quiz</button>
+        <button class="sm-btn" onclick="showTab('home')">Home</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const FAA_QS=[
+{id:101,cat:"Regulations",faa:true,q:"Maintenance records show the last transponder inspection was performed on September 1, 2014. The next inspection will be due no later than",opts:["September 30, 2015.","September 1, 2016.","September 30, 2016."],ans:2,exp:"Transponder inspections are required every 24 calendar months (14 CFR 91.413). From Sept 1 2014 + 24 months = Sept 30 2016.",ref:"14 CFR 91.413"},
+{id:102,cat:"Regulations",faa:true,q:"With respect to the certification of airmen, which are categories of aircraft?",opts:["Gyroplane, helicopter, airship, free balloon.","Airplane, rotorcraft, glider, lighter-than-air.","Single-engine land and sea, multiengine land and sea."],ans:1,exp:"Aircraft categories: airplane, rotorcraft, glider, lighter-than-air. Classes include single/multi-engine land/sea.",ref:"14 CFR 61.5"},
+{id:103,cat:"Airport Operations",faa:true,q:"A flashing white light signal from the control tower to a taxiing aircraft is an indication to",opts:["taxi at a faster speed.","taxi only on taxiways and not cross runways.","return to the starting point on the airport."],ans:2,exp:"Flashing white on the ground = return to starting point. Steady green = cleared for takeoff.",ref:"AIM 4-3-13"},
+{id:104,cat:"Regulations",faa:true,q:"During operations outside controlled airspace at altitudes of more than 1,200 feet AGL, but less than 10,000 feet MSL, the minimum flight visibility for day VFR is",opts:["1 mile.","3 miles.","5 miles."],ans:1,exp:"Class G above 1,200 ft AGL below 10,000 ft MSL during day: 3 statute miles visibility.",ref:"14 CFR 91.155"},
+{id:105,cat:"Regulations",faa:true,q:"Unless otherwise authorized, two-way radio communications with ATC are required for landings or takeoffs at all towered airports",opts:["regardless of weather conditions.","only when weather conditions are less than VFR.","within Class D airspace only when weather conditions are less than VFR."],ans:0,exp:"Two-way radio communication is required at all towered airports (Class B, C, D) regardless of weather.",ref:"14 CFR 91.129"},
+{id:106,cat:"Regulations",faa:true,q:"During operations outside controlled airspace at more than 1,200 ft AGL but less than 10,000 ft MSL, minimum distance below clouds for VFR at night is",opts:["500 feet.","1,000 feet.","1,500 feet."],ans:0,exp:"At night in Class G above 1,200 ft AGL below 10,000 ft MSL: 500 ft below, 1,000 ft above, 2,000 ft horizontal.",ref:"14 CFR 91.155"},
+{id:107,cat:"Regulations",faa:true,q:"Two-way radio communication must be established prior to entering which class airspace?",opts:["Class C.","Class E.","Class G."],ans:0,exp:"Class C requires two-way radio before entry. Class B requires ATC clearance.",ref:"AIM 3-2-4"},
+{id:108,cat:"Regulations",faa:true,q:"Pre-takeoff briefing of passengers about seat belts is the responsibility of",opts:["all passengers.","the pilot in command.","the right seat pilot."],ans:1,exp:"The PIC is responsible for briefing passengers on seat belts and shoulder harnesses before takeoff.",ref:"14 CFR 91.107"},
+{id:109,cat:"Regulations",faa:true,q:"A 100-hour inspection was due at 3302.5 hours but done at 3309.5 hours. When is the next 100-hour inspection due?",opts:["3312.5 hours.","3395.5 hours.","3402.5 hours."],ans:2,exp:"The interval is from when it was DUE, not performed. 3302.5 + 100 = 3402.5. The overrun doesn't carry forward.",ref:"14 CFR 91.409"},
+{id:110,cat:"Weather",faa:true,q:"When speaking to a flight service weather briefer, you should state",opts:["the pilot in command's full name and address.","a summary of your qualifications.","whether the flight is VFR or IFR."],ans:2,exp:"State: aircraft N-number, type, departure, destination, route, altitude, and VFR or IFR.",ref:"AIM 7-1-4"},
+{id:111,cat:"Weather",faa:true,q:"Why is frost considered hazardous to flight?",opts:["Frost changes the aerodynamic shape, increasing lift.","Frost slows airflow, increasing control effectiveness.","Frost spoils smooth airflow over wings, decreasing lift."],ans:2,exp:"Frost disrupts smooth airflow, increases drag and reduces lift. Even a thin layer can prevent takeoff.",ref:"AC 00-6"},
+{id:112,cat:"Weather",faa:true,q:"The mature stage of a thunderstorm begins with",opts:["formation of the anvil top.","the start of precipitation.","continuous downdrafts."],ans:1,exp:"The mature stage begins when precipitation falls — the most intense stage with both updrafts and downdrafts.",ref:"AC 00-6"},
+{id:113,cat:"Airport Operations",faa:true,q:"What action should a VFR pilot take in a Military Operations Area (MOA)?",opts:["Obtain a clearance from the controlling agency.","Operate only on airways that transverse the MOA.","Exercise extreme caution when military activity is being conducted."],ans:2,exp:"VFR pilots may operate in MOAs without clearance but should exercise extreme caution during military activity.",ref:"AIM 3-4-5"},
+{id:114,cat:"Airport Operations",faa:true,q:"Unless otherwise authorized, a transponder-equipped aircraft flying VFR should squawk",opts:["1200","7600","7700"],ans:0,exp:"1200 is the standard VFR squawk. 7500 = hijack, 7600 = radio failure, 7700 = emergency.",ref:"AIM 4-1-20"},
+{id:115,cat:"Aircraft Systems",faa:true,q:"What is one purpose of wing flaps?",opts:["Enable steeper approaches without increasing airspeed.","Relieve the pilot of maintaining continuous control pressure.","Decrease wing area to vary lift."],ans:0,exp:"Flaps allow steeper approach angles at lower airspeed. They also reduce stall speed.",ref:"FAA-H-8083-25"},
+{id:116,cat:"Aircraft Systems",faa:true,q:"Float-type carburetor systems compared to fuel injection systems are generally",opts:["more susceptible to icing.","equally susceptible to icing.","less susceptible to icing."],ans:0,exp:"Float-type carburetors are more susceptible to icing due to the venturi effect and fuel vaporization.",ref:"FAA-H-8083-25"},
+{id:117,cat:"Aircraft Systems",faa:true,q:"What does the red line on an airspeed indicator represent?",opts:["Maneuvering speed.","Turbulent or rough-air speed.","Never-exceed speed."],ans:2,exp:"The red line (Vne) = never-exceed speed. Exceeding this risks structural damage or failure.",ref:"FAA-H-8083-25"},
+{id:118,cat:"Airport Operations",faa:true,q:"Who has final authority to accept or decline any LAHSO clearance?",opts:["Pilot in command.","Air Traffic Controller.","Second in command."],ans:0,exp:"The PIC has final authority on LAHSO. Only accept if you can safely stop within available landing distance.",ref:"AIM 4-3-11"},
+{id:119,cat:"Aerodynamics",faa:true,q:"'Angle of attack' is defined as the angle between the",opts:["chord line of the wing and the relative wind.","airplane's longitudinal axis and air striking the airfoil.","airplane's center line and the relative wind."],ans:0,exp:"AOA = angle between the wing chord line and the relative wind. Not the same as pitch attitude.",ref:"FAA-H-8083-25"},
+{id:120,cat:"Navigation",faa:true,q:"When the CDI needle is centered with a VOT, the OBS and TO/FROM indicator should read",opts:["180° FROM, only if due north of the VOT.","0° TO or 180° FROM, regardless of position.","0° FROM or 180° TO, regardless of position."],ans:2,exp:"VOT check: CDI centers on 0° FROM (or 180° TO). Tolerance ±4°. Same regardless of position.",ref:"AIM 1-1-4"},
+{id:121,cat:"Regulations",faa:true,q:"On a VFR cross country not in contact with ATC, what frequency for an emergency?",opts:["121.5 MHz.","122.5 MHz.","128.725 MHz."],ans:0,exp:"121.5 MHz is the international emergency frequency (Guard), monitored by ATC, military, and airlines.",ref:"AIM 6-3-1"},
+{id:122,cat:"Navigation",faa:true,q:"ATC advises 'traffic 12 o'clock.' This advisory is relative to your",opts:["true course.","ground track.","magnetic heading."],ans:1,exp:"Traffic clock positions are relative to ground track — the actual path over the ground.",ref:"AIM 4-1-15"},
+{id:123,cat:"Aerodynamics",faa:true,q:"Which statement relates to Bernoulli's principle?",opts:["For every action there is an equal and opposite reaction.","An upward force is generated as the lower surface deflects air downward.","Air traveling faster over the curved upper surface causes lower pressure on top."],ans:2,exp:"Bernoulli: faster airflow = lower pressure. The curved upper wing accelerates air, creating lift.",ref:"FAA-H-8083-25"},
+{id:124,cat:"Navigation",faa:true,q:"Deviation error of the magnetic compass is caused by",opts:["a northerly turning error.","certain metals and electrical systems within the aircraft.","the difference in location of true north and magnetic north."],ans:1,exp:"Deviation = magnetic fields from aircraft metals/electrics. Variation = difference between true and magnetic north.",ref:"FAA-H-8083-25"},
+{id:125,cat:"Aircraft Systems",faa:true,q:"In a fixed-pitch propeller with float carburetor, first indication of carb ice would be",opts:["a drop in oil and cylinder head temperature.","engine roughness.","loss of RPM."],ans:2,exp:"Fixed-pitch: carb ice = loss of RPM. Constant-speed: manifold pressure drops first.",ref:"FAA-H-8083-25"},
+{id:126,cat:"Navigation",faa:true,q:"How far will an aircraft travel in 7.5 minutes at a ground speed of 114 knots?",opts:["14.25 NM.","15.00 NM.","14.50 NM."],ans:0,exp:"114 × (7.5/60) = 114 × 0.125 = 14.25 NM.",ref:"FAA-H-8083-25"},
+{id:127,cat:"Regulations",faa:true,q:"The radius of the procedural outer area of Class C airspace is normally",opts:["10 NM.","20 NM.","30 NM."],ans:1,exp:"Class C outer procedural area extends to 20 NM from the primary airport.",ref:"AIM 3-2-4"},
+{id:128,cat:"Medical/Physiology",faa:true,q:"A pilot experiencing hyperventilation should restore CO2 levels by",opts:["slowing breathing rate, breathing into a paper bag, or talking aloud.","breathing spontaneously and deeply.","increasing breathing rate to increase lung ventilation."],ans:0,exp:"Hyperventilation expels CO2. Fix: slow breathing, breathe into a bag, or talk aloud to retain CO2.",ref:"FAA-H-8083-25"},
+{id:129,cat:"Medical/Physiology",faa:true,q:"Daytime collision avoidance scanning eye movements should",opts:["not exceed 10 degrees, viewing each sector at least 1 second.","be 30 degrees, viewing each sector at least 3 seconds.","use peripheral vision with off-center viewing."],ans:0,exp:"Scan in 10° increments, pause 1 second per sector. Off-center viewing is for night ops.",ref:"AIM 8-1-6"},
+{id:130,cat:"Weather",faa:true,q:"When there is a temperature inversion, you would expect",opts:["clouds with extensive vertical development above the inversion.","good visibility below and poor visibility above the inversion.","an increase in temperature as altitude increases."],ans:2,exp:"Temperature inversion = temperature rises with altitude. Creates stable layer trapping fog and pollutants below.",ref:"AC 00-6"},
+{id:131,cat:"Weather",faa:true,q:"When warm, moist, stable air flows upslope, it",opts:["produces stratus type clouds.","causes showers and thunderstorms.","develops convective turbulence."],ans:0,exp:"Stable air upslope = stratiform clouds. Unstable air upslope = cumuliform clouds and thunderstorms.",ref:"AC 00-6"},
+{id:132,cat:"Regulations",faa:true,q:"A pilot certificate must be presented for inspection upon request of any",opts:["authorized representative of the Department of Transportation.","person in a position of authority.","local law enforcement officer."],ans:0,exp:"Per 14 CFR 61.3, present to authorized DOT, NTSB representatives, or federal/state/local law enforcement.",ref:"14 CFR 61.3"},
+{id:133,cat:"Airport Operations",faa:true,q:"The correct method of stating 5,500 feet MSL to ATC is",opts:["FIVE POINT FIVE.","FIFTY-FIVE HUNDRED FEET MSL.","FIVE THOUSAND FIVE HUNDRED."],ans:2,exp:"ATC phraseology: state thousands then hundreds. 5,500 = 'FIVE THOUSAND FIVE HUNDRED.'",ref:"AIM 4-2-9"},
+{id:134,cat:"Regulations",faa:true,q:"Which situation requires ADS-B unless otherwise authorized?",opts:["Landing at an airport with an operating control tower.","Overflying Class C airspace below 10,000 feet MSL.","Flying under the shelf of Class C airspace."],ans:1,exp:"ADS-B required in Class A, B, C; Class E above 10,000 ft; within 30 NM of Class B airports.",ref:"14 CFR 91.225"},
+{id:135,cat:"Aerodynamics",faa:true,q:"In what flight condition are torque effects most pronounced?",opts:["Low airspeed, high power, high angle of attack.","Low airspeed, low power, low angle of attack.","High airspeed, high power, high angle of attack."],ans:0,exp:"Torque, P-factor, slipstream, gyroscopic precession peak at low airspeed/high power/high AOA — initial climbout.",ref:"FAA-H-8083-25"},
+{id:136,cat:"Weather",faa:true,q:"Wind at 5,000 ft AGL is southwesterly while surface wind is southerly. This is primarily due to",opts:["stronger pressure gradient at higher altitudes.","friction between the wind and the surface.","stronger Coriolis force at the surface."],ans:1,exp:"Surface friction slows wind and causes it to back. At altitude, no friction — wind follows pressure gradient.",ref:"AC 00-6"},
+{id:137,cat:"Weather",faa:true,q:"SIGMET stands for and is issued for",opts:["Significant Meteorological Information, for severe weather hazards to all aircraft.","Signal Meteorology, for routine weather.","Significant Metric, for temperature inversions."],ans:0,exp:"SIGMETs cover conditions hazardous to all aircraft: severe turbulence, icing, dust storms, volcanic ash.",ref:"AIM 7-1-6"},
+{id:138,cat:"Regulations",faa:true,q:"To carry passengers, you must have made at least 3 takeoffs and landings within the preceding",opts:["90 days.","60 days.","30 days."],ans:2,exp:"Three takeoffs and 3 landings within 90 days in the same category, class, and type of aircraft.",ref:"14 CFR 61.57"},
+];
+
+const ORIG_QS=[
+{id:1,cat:"Regulations",q:"What is the minimum safe altitude when flying over congested areas?",opts:["500 ft AGL","1,000 ft AGL","2,000 ft AGL","1,500 ft AGL"],ans:1,exp:"FAR 91.119 requires 1,000 ft above the highest obstacle within a 2,000-ft horizontal radius over congested areas.",ref:"14 CFR 91.119"},
+{id:2,cat:"Regulations",q:"What is the BAC limit for acting as pilot in command?",opts:["0.02%","0.04%","0.08%","0.10%"],ans:1,exp:"FAR 91.17 prohibits acting as PIC with BAC of 0.04% or greater. Also, 8 hours bottle-to-throttle.",ref:"14 CFR 91.17"},
+{id:3,cat:"Weather",q:"What fog forms when warm, moist air moves over a cooler surface?",opts:["Radiation fog","Advection fog","Upslope fog","Steam fog"],ans:1,exp:"Advection fog forms when warm moist air moves over a cooler surface and cools below dew point.",ref:"AC 00-6"},
+{id:4,cat:"Weather",q:"A steady drop in barometric pressure typically indicates:",opts:["Improving weather","Deteriorating weather","Stable conditions","Frontal passage complete"],ans:1,exp:"A falling barometer indicates approaching low pressure and deteriorating weather.",ref:"AC 00-6"},
+{id:5,cat:"Weather",q:"Which condition results in the highest density altitude?",opts:["High elevation, low temp, low humidity","Low elevation, high temp, high humidity","High elevation, high temp, high humidity","Low elevation, low temp, high humidity"],ans:2,exp:"Density altitude increases with high elevation, high temperature, and high humidity — worst aircraft performance.",ref:"AC 00-6"},
+{id:6,cat:"Navigation",q:"The difference between true north and magnetic north is called",opts:["Variation","Deviation","Declination","Isogonic difference"],ans:0,exp:"Variation (magnetic declination) = angular difference between true and magnetic north at a given location.",ref:"FAA-H-8083-25"},
+{id:7,cat:"Navigation",q:"To convert true course to magnetic course:",opts:["Add westerly variation, subtract easterly","Subtract westerly variation, add easterly","Always add variation","Always subtract variation"],ans:0,exp:"'East is least, West is best.' Add westerly variation, subtract easterly to get magnetic course.",ref:"FAA-H-8083-25"},
+{id:8,cat:"Aerodynamics",q:"A wing always stalls at",opts:["A specific airspeed","The same critical angle of attack regardless of airspeed","An angle that increases with bank","An angle that varies with density"],ans:1,exp:"A wing stalls at the same critical AOA (typically 15–20°) regardless of airspeed, weight, or bank. Stall speed varies.",ref:"FAA-H-8083-25"},
+{id:9,cat:"Aerodynamics",q:"Load factor in a 60° bank level turn is:",opts:["1.4 G","2.0 G","1.7 G","2.5 G"],ans:1,exp:"Load factor = 1/cos(bank). At 60°: 1/cos(60°) = 1/0.5 = 2.0 G.",ref:"FAA-H-8083-25"},
+{id:10,cat:"Aerodynamics",q:"Ground effect is best described as",opts:["Friction between tires and runway","Increased induced drag within one wingspan of the ground","Reduced induced drag within one wingspan of the ground","Turbulence from uneven terrain"],ans:2,exp:"Ground effect reduces induced drag within ~one wingspan of ground, causing the aircraft to float during landing.",ref:"FAA-H-8083-25"},
+{id:11,cat:"Aircraft Systems",q:"The purpose of the carburetor heat system is to",opts:["Increase engine power","Prevent or remove carburetor ice","Cool the engine","Improve fuel mixture at altitude"],ans:1,exp:"Carb heat introduces warm air to prevent or melt carburetor ice, which can form above freezing in high humidity.",ref:"FAA-H-8083-25"},
+{id:12,cat:"Aircraft Systems",q:"Avgas 100LL is what color?",opts:["Red","Green","Blue","Clear"],ans:2,exp:"100LL is dyed blue. Jet-A = clear/straw. 80 octane = red, 100 octane = green.",ref:"FAA-H-8083-25"},
+{id:13,cat:"Airport Operations",q:"Taking off on runway 36 means you're heading",opts:["090°","180°","270°","360°"],ans:3,exp:"Runway numbers = magnetic heading ÷ 10. Runway 36 = 360° (due north).",ref:"AIM 2-3-3"},
+{id:14,cat:"Airport Operations",q:"Standard traffic pattern altitude at uncontrolled airports is",opts:["500 ft AGL","800 ft AGL","1,000 ft AGL","1,500 ft AGL"],ans:2,exp:"1,000 ft AGL is standard at uncontrolled airports unless otherwise published.",ref:"AIM 4-3-3"},
+{id:15,cat:"Medical/Physiology",q:"Significant hypoxia typically begins around",opts:["6,000 ft","10,000 ft","14,000 ft","18,000 ft"],ans:1,exp:"Significant hypoxia begins ~10,000 ft. O2 required above 12,500 ft for 30+ min or above 14,000 ft.",ref:"14 CFR 91.211"},
+{id:16,cat:"Medical/Physiology",q:"IMSAFE stands for",opts:["Inspect, Magnetos, Stall, Attitude, Fuel, Emergency","Illness, Medication, Stress, Alcohol, Fatigue, Emotion","Instruments, Maps, Situation, Altitude, Flight plan, Emergency","Ignition, Mixture, Speed, Angle, Flaps, Engine"],ans:1,exp:"IMSAFE preflight self-check: Illness, Medication, Stress, Alcohol, Fatigue, Emotion.",ref:"FAA-H-8083-25"},
+{id:17,cat:"Regulations",q:"Required aircraft documents on board (ARROW) are",opts:["Airworthiness, Registration, Radio, Operating handbook, Weight & balance","Airworthiness, Registration, Radar, Operating handbook, Written logbook","All certificates, Radio, Overhaul records, Weather briefing, Operating handbook","Airworthiness, Radar, Radio, Oxygen, Weight & balance"],ans:0,exp:"ARROW: Airworthiness certificate, Registration, Radio station license (international), Operating limitations, Weight & balance.",ref:"14 CFR 91.9, 91.203"},
+{id:18,cat:"Aerodynamics",q:"P-factor is most pronounced when",opts:["Flying at high altitude","High angle of attack, low airspeed","In a descent","At cruise airspeed"],ans:1,exp:"P-factor (asymmetric thrust) peaks at high AOA/low airspeed, causing left yaw on standard US aircraft.",ref:"FAA-H-8083-25"},
+{id:19,cat:"Weather",q:"What cloud type is associated with thunderstorms?",opts:["Cumulus","Cumulonimbus","Nimbostratus","Altocumulus"],ans:1,exp:"Cumulonimbus (Cb) clouds are associated with thunderstorms and can extend to 60,000 ft.",ref:"AC 00-6"},
+{id:20,cat:"Aircraft Systems",q:"An ammeter indicates",opts:["Battery voltage","Rate of charge or discharge of the battery","Total electrical load","Alternator temperature"],ans:1,exp:"Ammeter shows current flow into (charging) or out of (discharging) the battery.",ref:"FAA-H-8083-25"},
+{id:21,cat:"Medical/Physiology",q:"Spatial disorientation is the inability to",opts:["Navigate accurately","Correctly determine aircraft attitude relative to earth","Maintain radio communication","Resist motion sickness"],ans:1,exp:"Spatial disorientation: the vestibular system provides incorrect attitude cues that can contradict instruments.",ref:"FAA-H-8083-25"},
+{id:22,cat:"Aircraft Systems",q:"The mixture control adjusts",opts:["Throttle position","Fuel-to-air ratio","Propeller pitch","Carb heat"],ans:1,exp:"Mixture adjusts fuel flow to maintain correct fuel-to-air ratio as air density changes with altitude.",ref:"FAA-H-8083-25"},
+{id:23,cat:"Regulations",q:"A private pilot may share flight expenses with passengers by",opts:["No exceptions exist","Charitable air tours only","Sharing pro-rata operating expenses","Towing gliders for profit"],ans:2,exp:"Private pilots may share pro-rata fuel, oil, airport, and rental fees but not profit from the flight.",ref:"14 CFR 61.113"},
+];
+
+const ALL_QS=[...FAA_QS,...ORIG_QS];
+const CATS=[...new Set(ALL_QS.map(q=>q.cat))];
+
+let S={mode:'flash',cat:'All',fIdx:0,flipped:false,scores:{},intervals:{},qQs:[],qIdx:0,qCorr:0,qStart:0,timerInt:null,streak:0,studied:0,correct:0,qCount:10};
+
+async function loadS(){
+  try{if(window.storage){const r=await window.storage.get('ppl-v3');if(r){const d=JSON.parse(r.value);Object.assign(S,{scores:d.scores||{},intervals:d.intervals||{},streak:d.streak||0,studied:d.studied||0,correct:d.correct||0});}}}catch(e){}
+  updateStats();
+}
+function saveS(){try{window.storage&&window.storage.set('ppl-v3',JSON.stringify({scores:S.scores,intervals:S.intervals,streak:S.streak,studied:S.studied,correct:S.correct}));}catch(e){}}
+
+function fqs(){return S.cat==='All'?ALL_QS:ALL_QS.filter(q=>q.cat===S.cat);}
+
+function buildCats(id,cb){
+  const el=document.getElementById(id);
+  el.innerHTML='';
+  ['All',...CATS].forEach(c=>{
+    const n=c==='All'?ALL_QS.length:ALL_QS.filter(q=>q.cat===c).length;
+    const ch=document.createElement('button');
+    ch.className='chip'+(S.cat===c?' active':'');
+    ch.textContent=c==='All'?`All (${n})`:c;
+    ch.onclick=()=>{S.cat=c;buildCats(id,cb);cb();};
+    el.appendChild(ch);
+  });
+}
+
+function showTab(t){
+  ['home','flash','quiz'].forEach(x=>document.getElementById('tab-'+x).classList.toggle('hidden',x!==t));
+  document.querySelectorAll('.pill').forEach((el,i)=>el.classList.toggle('active',['home','flash','quiz'][i]===t));
+  if(t==='flash'){buildCats('flash-cats',()=>{S.fIdx=0;loadFC();});loadFC();}
+  if(t==='quiz'){buildCats('quiz-cats',()=>{});showQSetup();}
+  if(t==='home'){buildCats('home-cats',()=>{});updateStats();}
+}
+
+function updateStats(){
+  document.getElementById('s-studied').textContent=S.studied;
+  document.getElementById('s-pct').textContent=S.studied>0?Math.round(S.correct/S.studied*100)+'%':'–';
+  document.getElementById('s-streak').textContent=S.streak;
+  document.getElementById('s-due').textContent=ALL_QS.filter(q=>!S.intervals[q.id]||S.intervals[q.id]<=Date.now()).length;
+}
+
+function loadFC(){
+  const qs=fqs();if(!qs.length)return;
+  const q=qs[S.fIdx%qs.length];
+  const faa=q.faa?'<span class="faa-dot"></span>FAA official · ':'';
+  document.getElementById('fc-cat').innerHTML=faa+q.cat;
+  document.getElementById('fc-cat2').textContent='Correct answer';
+  document.getElementById('fc-q').textContent=q.q;
+  document.getElementById('fc-ans').textContent=q.opts[q.ans];
+  document.getElementById('fc-exp').textContent=q.exp||'';
+  document.getElementById('fc-ref').textContent=q.ref?'Ref: '+q.ref:'';
+  document.getElementById('fc-num').textContent=(S.fIdx%qs.length+1)+'/'+qs.length;
+  document.getElementById('flashcard').classList.remove('flipped');
+  S.flipped=false;
+}
+
+function flipCard(){S.flipped=!S.flipped;document.getElementById('flashcard').classList.toggle('flipped',S.flipped);}
+
+function rateCard(r){
+  const qs=fqs();const q=qs[S.fIdx%qs.length];
+  S.intervals[q.id]=Date.now()+[0,1,4,7,14][r]*86400000;
+  S.studied++;if(r>=3){S.correct++;S.streak++;}else S.streak=0;
+  S.scores[q.id]=Math.max(0,Math.min(5,(S.scores[q.id]||0)+(r>=3?1:-1)));
+  S.fIdx=(S.fIdx+1)%qs.length;
+  saveS();updateStats();loadFC();
+}
+
+function selMode(m,el){S.mode=m;document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');}
+
+function selCount(el){S.qCount=parseInt(el.dataset.n);document.querySelectorAll('.set-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+
+function startSelMode(){
+  if(S.mode==='flash')showTab('flash');
+  else if(S.mode==='quiz')showTab('quiz');
+  else if(S.mode==='weak'){
+    const w=ALL_QS.filter(q=>(S.scores[q.id]||0)<2);
+    if(!w.length){alert('No weak areas yet — keep studying!');return;}
+    S.cat='All';showTab('flash');
+  }else if(S.mode==='sim'){S.cat='All';S.qCount=60;showTab('quiz');setTimeout(startQuiz,50);}
+}
+
+function startQuiz(){
+  const qs=fqs();
+  S.qQs=[...qs].sort(()=>Math.random()-0.5).slice(0,Math.min(S.qCount,qs.length));
+  S.qIdx=0;S.qCorr=0;S.qStart=Date.now();
+  if(S.timerInt)clearInterval(S.timerInt);
+  S.timerInt=setInterval(()=>{document.getElementById('q-timer').textContent=fmt(Math.round((Date.now()-S.qStart)/1000));},1000);
+  ['quiz-setup','quiz-results'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+  document.getElementById('quiz-active').classList.remove('hidden');
+  loadQQ();
+}
+
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+
+function loadQQ(){
+  const q=S.qQs[S.qIdx];const tot=S.qQs.length;
+  document.getElementById('q-pf').style.width=Math.round(S.qIdx/tot*100)+'%';
+  document.getElementById('q-cl').textContent=(S.qIdx+1)+'/'+tot;
+  document.getElementById('q-cat').textContent=q.cat;
+  document.getElementById('q-faa').innerHTML=q.faa?'<span class="faa-badge">FAA</span>':'';
+  document.getElementById('q-q').textContent=q.q;
+  document.getElementById('q-expl').textContent=q.exp||'';
+  document.getElementById('q-expl').classList.remove('show');
+  document.getElementById('q-next').classList.add('hidden');
+  const opts=document.getElementById('q-opts');opts.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    if(i>=q.opts.length)return;
+    const b=document.createElement('button');
+    b.className='opt';
+    b.innerHTML='<span class="opt-ltr">'+l+'</span>'+q.opts[i];
+    b.onclick=()=>ansQ(i);
+    opts.appendChild(b);
+  });
+}
+
+function ansQ(chosen){
+  const q=S.qQs[S.qIdx];const ok=chosen===q.ans;
+  if(ok){S.qCorr++;S.streak++;}else S.streak=0;
+  S.studied++;if(ok)S.correct++;
+  S.scores[q.id]=Math.max(0,Math.min(5,(S.scores[q.id]||0)+(ok?1:-1)));
+  document.querySelectorAll('.opt').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===q.ans)b.classList.add('correct');
+    else if(i===chosen&&!ok)b.classList.add('wrong');
+  });
+  document.getElementById('q-expl').classList.add('show');
+  document.getElementById('q-next').classList.remove('hidden');
+  saveS();updateStats();
+}
+
+function nextQ(){
+  S.qIdx++;
+  if(S.qIdx>=S.qQs.length){if(S.timerInt)clearInterval(S.timerInt);showResults();}
+  else loadQQ();
+}
+
+function showResults(){
+  document.getElementById('quiz-active').classList.add('hidden');
+  document.getElementById('quiz-results').classList.remove('hidden');
+  const pct=Math.round(S.qCorr/S.qQs.length*100);
+  const elapsed=Math.round((Date.now()-S.qStart)/1000);
+  document.getElementById('r-pct').textContent=pct+'%';
+  document.getElementById('r-pct').className='result-pct '+(pct>=70?'result-pass':'result-fail');
+  document.getElementById('r-msg').textContent=pct>=70?'Pass — FAA requires 70%':'Below passing. Keep studying!';
+  document.getElementById('r-corr').textContent=S.qCorr;
+  document.getElementById('r-wrong').textContent=S.qQs.length-S.qCorr;
+  document.getElementById('r-time').textContent=fmt(elapsed);
+}
+
+function showQSetup(){['quiz-setup','quiz-active','quiz-results'].forEach((id,i)=>document.getElementById(id).classList.toggle('hidden',i!==0));}
+
+function resetProg(){
+  if(!confirm('Reset all progress?'))return;
+  Object.assign(S,{scores:{},intervals:{},streak:0,studied:0,correct:0});
+  saveS();updateStats();
+}
+
+buildCats('home-cats',()=>{});
+loadS();
+</script>
