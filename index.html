@@ -1,186 +1,700 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>neilbuilds</title>
-  <meta name="description" content="Neil B. — building small, fun web apps." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      background: #0a0a0a;
-      color: #f5f5f5;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      line-height: 1.6;
-    }
-    .container { max-width: 640px; width: 100%; }
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #fff 0%, #888 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    p.tagline {
-      font-size: 1.25rem;
-      color: #a0a0a0;
-      margin-bottom: 3rem;
-    }
-    .section {
-      border-top: 1px solid #222;
-      padding: 1.75rem 0;
-    }
-    .section h2 {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #666;
-      margin-bottom: 1rem;
-    }
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .links a, .links span {
-      color: #f5f5f5;
-      text-decoration: none;
-      padding: 0.5rem 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      width: fit-content;
-      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-      position: relative;
-      border-bottom: none;
-    }
-    .links a::before {
-      content: "→";
-      color: #555;
-      transition: transform 0.2s ease, color 0.2s ease;
-      display: inline-block;
-    }
-    .links a::after {
-      content: "";
-      position: absolute;
-      bottom: 0.25rem;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: #f5f5f5;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-    .links a:hover::before {
-      color: #f5f5f5;
-      transform: translateX(3px);
-    }
-    .links a:hover::after {
-      transform: scaleX(1);
-    }
-    .links span.soon {
-      color: #555;
-      font-style: italic;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-    .tag {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.15rem 0.5rem;
-      border-radius: 3px;
-      background: #1a1a1a;
-      color: #888;
-      border: 1px solid #2a2a2a;
-      font-weight: 500;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #555;
-      border-top: 1px solid #222;
-      padding-top: 1.5rem;
-    }
-    footer a { color: #888; text-decoration: none; border-bottom: 1px solid #333; }
-    footer a:hover { color: #f5f5f5; border-color: #f5f5f5; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>neilbuilds</h1>
-    <p class="tagline">Small, fun web apps. Data + AI by day, side projects by night.</p>
-    
-  <div class="section">
-    <h2>Coming Soon</h2>
-    <div class="links">
-      <span class="soon">Choice Intelligence/span>
-      <span class="soon">Box Office Cinemas — Concept Website</span>
-      <span class="soon">Children's Books — Kaira &amp; the Magic Stage</span>
-  </div>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0a1628; --navy-mid: #162035; --navy-light: #1e2d47;
+    --accent: #c8a96e; --accent-light: #e8d4a8;
+    --red: #c94040; --red-bg: #fff0f0; --red-border: #f5c1c1;
+    --amber: #b87a1a; --amber-bg: #fff8ec; --amber-border: #facb75;
+    --green: #2d7a45; --green-bg: #eef7f2; --green-border: #9fcfb3;
+    --surface: var(--color-background-primary);
+    --surface2: var(--color-background-secondary);
+    --border: var(--color-border-tertiary);
+    --text: var(--color-text-primary);
+    --muted: var(--color-text-secondary);
+    --hint: var(--color-text-tertiary);
+  }
+  .shell { display: flex; min-height: 680px; font-size: 14px; line-height: 1.5; }
+  .sidebar { width: 220px; flex-shrink: 0; background: #0a1628; color: #c8d4e8; padding: 0; display: flex; flex-direction: column; border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg); overflow: hidden; }
+  .logo-bar { padding: 20px 20px 16px; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+  .logo-mark { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; color: #c8a96e; text-transform: uppercase; }
+  .logo-name { font-size: 15px; font-weight: 500; color: #e8eef5; margin-top: 2px; }
+  .nav-section { padding: 16px 0 8px; }
+  .nav-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; color: rgba(200,217,236,0.4); text-transform: uppercase; padding: 0 20px; margin-bottom: 6px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; color: rgba(200,217,236,0.7); cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.05); color: #e8eef5; }
+  .nav-item.active { background: rgba(200,169,110,0.12); color: #c8a96e; border-left-color: #c8a96e; }
+  .nav-item i { font-size: 15px; opacity: 0.8; }
+  .nav-divider { border: none; border-top: 0.5px solid rgba(255,255,255,0.06); margin: 8px 0; }
+  .mode-toggle { margin: auto 20px 20px; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 14px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+  .mode-toggle-label { font-size: 12px; color: rgba(200,217,236,0.7); }
+  .toggle-pill { width: 32px; height: 18px; background: rgba(255,255,255,0.1); border-radius: 9px; position: relative; }
+  .main { flex: 1; overflow-y: auto; background: var(--surface2); border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0; }
+  .header-bar { background: var(--surface); border-bottom: 0.5px solid var(--border); padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .breadcrumb { font-size: 12px; color: var(--muted); }
+  .meta-pills { display: flex; gap: 8px; }
+  .pill { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+  .pill-caution { background: #fff8ec; color: #8a5c0a; border: 0.5px solid #facb75; }
+  .pill-date { background: var(--surface2); color: var(--muted); border: 0.5px solid var(--border); }
+  .content { padding: 24px 28px; }
+  .condition-card { background: #0a1628; color: #e8eef5; border-radius: var(--border-radius-lg); padding: 28px 32px; margin-bottom: 20px; position: relative; overflow: hidden; }
+  .condition-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(200,169,110,0.12) 0%, transparent 70%); }
+  .condition-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: rgba(200,169,110,0.8); text-transform: uppercase; margin-bottom: 10px; }
+  .condition-statement { font-size: 18px; font-weight: 400; line-height: 1.55; color: #d4dce8; max-width: 600px; }
+  .condition-statement strong { color: #e8d4a8; font-weight: 500; }
+  .metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
+  .metric-box { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px 18px; }
+  .metric-box-label { font-size: 10px; letter-spacing: 0.08em; color: rgba(200,217,236,0.5); text-transform: uppercase; margin-bottom: 8px; }
+  .metric-box-value { font-size: 22px; font-weight: 500; }
+  .metric-box-sub { font-size: 12px; color: rgba(200,217,236,0.55); margin-top: 4px; }
+  .health-dots { display: flex; gap: 4px; margin-top: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.filled { background: #c8a96e; }
+  .dot.empty { background: rgba(255,255,255,0.15); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--border-radius-lg); padding: 20px 22px; }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .card-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .card-icon.red { background: #fff0f0; color: #c94040; }
+  .card-icon.green { background: #eef7f2; color: #2d7a45; }
+  .card-title { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+  .priority-list { list-style: none; }
+  .priority-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--border); align-items: flex-start; }
+  .priority-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .priority-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; margin-top: 1px; }
+  .priority-num.risk { background: #fff0f0; color: #c94040; }
+  .priority-num.oppty { background: #eef7f2; color: #2d7a45; }
+  .priority-text { font-size: 13px; color: var(--text); line-height: 1.45; }
+  .priority-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .badge { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 12px; display: inline-block; margin-top: 4px; }
+  .badge-red { background: #fff0f0; color: #9a2020; border: 0.5px solid #f5c1c1; }
+  .badge-amber { background: #fff8ec; color: #7a4d0a; border: 0.5px solid #facb75; }
+  .badge-green { background: #eef7f2; color: #1a5c30; border: 0.5px solid #9fcfb3; }
+  .posture-bar { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--border-radius-lg); padding: 18px 22px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+  .posture-label { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; font-weight: 500; }
+  .posture-options { display: flex; gap: 6px; }
+  .posture-opt { font-size: 12px; padding: 6px 14px; border-radius: 20px; border: 0.5px solid var(--border); color: var(--muted); }
+  .posture-opt.selected { background: #162035; color: #c8a96e; border-color: #c8a96e; font-weight: 500; }
+  .section-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+  .section-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--border-radius-lg); padding: 16px 18px; cursor: pointer; transition: border-color 0.15s; }
+  .section-card:hover { border-color: var(--color-border-primary); }
+  .section-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
+  .section-card-name { font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .severity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+  .sev-critical { background: #c94040; }
+  .sev-high { background: #d97a1a; }
+  .sev-medium { background: #5a8a30; }
+  .section-card-insight { font-size: 13px; color: var(--text); line-height: 1.45; }
+  .footer-meta { font-size: 11px; color: var(--hint); text-align: center; padding: 12px 0 4px; border-top: 0.5px solid var(--border); margin-top: 8px; }
+  .active-section { display: block; }
+  .hidden-section { display: none; }
+  .exec-content { padding: 24px 28px; }
+  .exec-section { margin-bottom: 24px; }
+  .exec-section-title { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 0.5px solid var(--border); }
+  .insight-row { padding: 12px 0; border-bottom: 0.5px solid var(--border); }
+  .insight-row:last-child { border-bottom: none; }
+  .insight-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; cursor: pointer; }
+  .insight-title { font-size: 14px; font-weight: 500; color: var(--text); }
+  .insight-expand { font-size: 11px; color: var(--muted); white-space: nowrap; margin-top: 2px; }
+  .insight-body { font-size: 13px; color: var(--muted); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 0.5px solid var(--border); }
+  .kv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px; }
+  .kv { background: var(--surface2); border-radius: 8px; padding: 12px 14px; }
+  .kv-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .kv-val { font-size: 16px; font-weight: 500; color: var(--text); }
+  .kv-ctx { font-size: 11px; color: var(--hint); margin-top: 2px; }
+</style>
+
+<h2 class="sr-only">Choice Group Executive Intelligence Dashboard — Board-ready strategic overview with risks, opportunities, and key metrics.</h2>
+
+<div class="shell">
+  <nav class="sidebar" aria-label="Primary navigation">
+    <div class="logo-bar">
+      <div class="logo-mark">Intelligence</div>
+      <div class="logo-name">Choice Group</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Primary</div>
+      <div class="nav-item active" onclick="showSection('overview')" aria-current="page">
+        <i class="ti ti-layout-dashboard" aria-hidden="true"></i> Overview
+      </div>
+      <div class="nav-item" onclick="showSection('exec')">
+        <i class="ti ti-file-description" aria-hidden="true"></i> Exec Summary
+      </div>
+      <div class="nav-item" onclick="showSection('risks')">
+        <i class="ti ti-alert-triangle" aria-hidden="true"></i> Key Risks
+      </div>
+      <div class="nav-item" onclick="showSection('oppty')">
+        <i class="ti ti-trending-up" aria-hidden="true"></i> Opportunities
+      </div>
+      <div class="nav-item" onclick="showSection('fin')">
+        <i class="ti ti-chart-bar" aria-hidden="true"></i> Financial Impact
+      </div>
+      <div class="nav-item" onclick="showSection('ops')">
+        <i class="ti ti-settings" aria-hidden="true"></i> Operations
+      </div>
+      <div class="nav-item" onclick="showSection('mkt')">
+        <i class="ti ti-world" aria-hidden="true"></i> Market Intel
+      </div>
+      <div class="nav-item" onclick="showSection('reco')">
+        <i class="ti ti-checklist" aria-hidden="true"></i> Recommendations
+      </div>
+      <div class="nav-item" onclick="showSection('action')">
+        <i class="ti ti-calendar-check" aria-hidden="true"></i> Action Plan
+      </div>
+    </div>
+    <hr class="nav-divider">
+    <div class="nav-section">
+      <div class="nav-label">Utility</div>
+      <div class="nav-item" onclick="showSection('appendix')">
+        <i class="ti ti-books" aria-hidden="true"></i> Appendix
+      </div>
+    </div>
+    <div class="mode-toggle" role="button" aria-pressed="false" tabindex="0">
+      <span class="mode-toggle-label">CEO Mode</span>
+      <div class="toggle-pill"></div>
+    </div>
+  </nav>
+
+  <main class="main" id="main-content">
+
+    <div id="section-overview" class="active-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview</div>
+        <div class="meta-pills">
+          <span class="pill pill-caution">⚠ Caution — Action Required</span>
+          <span class="pill pill-date">May 12, 2026 · 1 Report</span>
+        </div>
+      </div>
+      <div class="content">
+        <div class="condition-card">
+          <div class="condition-eyebrow">Strategic Condition Statement</div>
+          <div class="condition-statement">
+            Operationally resilient but <strong>strategically exposed</strong> — elevated concentration risk, active regulatory blocks, margin pressure, and material reputational exposure from labor-practice allegations require immediate board-level intervention.
+          </div>
+          <div class="metrics-row">
+            <div class="metric-box">
+              <div class="metric-box-label">Business Health</div>
+              <div class="health-dots">
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot filled"></div>
+                <div class="dot empty"></div>
+                <div class="dot empty"></div>
+              </div>
+              <div class="metric-box-sub" style="color:rgba(200,169,110,0.8)">Moderate / Caution</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-box-label">Transformation Upside</div>
+              <div class="metric-box-value" style="color:#7ec9a0">₹1,500–2,500 Cr</div>
+              <div class="metric-box-sub">If Path A executed</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-box-label">Decline / Black Swan</div>
+              <div class="metric-box-value" style="color:#e87070">₹200–500 Cr</div>
+              <div class="metric-box-sub">Or liquidation — if inaction</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon red"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+              <span class="card-title">Top 3 Risks</span>
+            </div>
+            <ul class="priority-list">
+              <li class="priority-item">
+                <div class="priority-num risk">1</div>
+                <div>
+                  <div class="priority-text">FDA Import Alert + TVPRA Forced Labor Listing</div>
+                  <div class="priority-sub">Active blocks on US imports; compounding legal & market risk</div>
+                  <span class="badge badge-red">Critical</span>
+                </div>
+              </li>
+              <li class="priority-item">
+                <div class="priority-num risk">2</div>
+                <div>
+                  <div class="priority-text">US Tariff Escalation: 58.26%</div>
+                  <div class="priority-sub">Indian shrimp uncompetitive vs Ecuador (0%), Indonesia (2.99%)</div>
+                  <span class="badge badge-red">Critical</span>
+                </div>
+              </li>
+              <li class="priority-item">
+                <div class="priority-num risk">3</div>
+                <div>
+                  <div class="priority-text">Outlaw Ocean Reputational Contagion</div>
+                  <div class="priority-sub">Retailer delisting risk; ESG investor concerns</div>
+                  <span class="badge badge-amber">High</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon green"><i class="ti ti-target" aria-hidden="true"></i></div>
+              <span class="card-title">Top 3 Priorities</span>
+            </div>
+            <ul class="priority-list">
+              <li class="priority-item">
+                <div class="priority-num oppty">1</div>
+                <div>
+                  <div class="priority-text">Resolve Regulatory Crisis</div>
+                  <div class="priority-sub">Clear FDA Import Alert 16-129; address TVPRA listing</div>
+                  <span class="badge badge-red">Urgent — 30 days</span>
+                </div>
+              </li>
+              <li class="priority-item">
+                <div class="priority-num oppty">2</div>
+                <div>
+                  <div class="priority-text">Geographic Diversification</div>
+                  <div class="priority-sub">Reduce US dependency below 70%; enter EU, UK, Middle East</div>
+                  <span class="badge badge-amber">3-year horizon</span>
+                </div>
+              </li>
+              <li class="priority-item">
+                <div class="priority-num oppty">3</div>
+                <div>
+                  <div class="priority-text">Governance Professionalization</div>
+                  <div class="priority-sub">Independent directors; succession plan for Jose Thomas (70+)</div>
+                  <span class="badge badge-amber">60 days</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="posture-bar">
+          <div class="posture-label">Strategic Posture</div>
+          <div class="posture-options">
+            <div class="posture-opt selected">Defensive</div>
+            <div class="posture-opt">Balanced</div>
+            <div class="posture-opt">Aggressive</div>
+            <div class="posture-opt">Transitional</div>
+          </div>
+        </div>
+
+        <div class="section-cards">
+          <div class="section-card" onclick="showSection('fin')">
+            <div class="section-card-top">
+              <div class="section-card-name">Financial Impact</div>
+              <div class="severity-dot sev-high"></div>
+            </div>
+            <div class="section-card-insight">Revenue $235M (FY25). Net margin 2.75% — minimal buffer. Gearing 2.05x with only ₹27 Cr free cash headroom.</div>
+          </div>
+          <div class="section-card" onclick="showSection('ops')">
+            <div class="section-card-top">
+              <div class="section-card-name">Operations</div>
+              <div class="severity-dot sev-critical"></div>
+            </div>
+            <div class="section-card-insight">Amalapuram unit under active FDA Import Alert. Bapatla facility PLI-eligible. Bottom 30–40% of SKUs create 3–6% revenue leakage.</div>
+          </div>
+          <div class="section-card" onclick="showSection('mkt')">
+            <div class="section-card-top">
+              <div class="section-card-name">Market Intel</div>
+              <div class="severity-dot sev-critical"></div>
+            </div>
+            <div class="section-card-insight">95% revenue from US shrimp exports. Ecuador and Indonesia gaining share under favorable tariff structures while India faces 58.26% combined duties.</div>
+          </div>
+          <div class="section-card" onclick="showSection('reco')">
+            <div class="section-card-top">
+              <div class="section-card-name">Recommendations</div>
+              <div class="severity-dot sev-medium"></div>
+            </div>
+            <div class="section-card-insight">Path A (transformation) requires aggressive regulatory remediation, governance upgrade, and market diversification. Window for action is closing.</div>
+          </div>
+        </div>
+
+        <div class="footer-meta">Last updated: May 12, 2026 · Sources: 40+ · Currency: USD / INR</div>
+      </div>
+    </div>
+
+    <div id="section-exec" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Executive Summary</div>
+        <div class="meta-pills">
+          <span class="pill pill-caution">BBB / Stable — CARE Ratings</span>
+        </div>
+      </div>
+      <div class="exec-content">
+        <div class="exec-section">
+          <div class="exec-section-title">Enterprise Snapshot</div>
+          <div class="kv-grid">
+            <div class="kv"><div class="kv-label">Revenue (FY25)</div><div class="kv-val">$235M</div><div class="kv-ctx">~₹1,970 Cr, +7.34% YoY</div></div>
+            <div class="kv"><div class="kv-label">Net Margin</div><div class="kv-val">2.75%</div><div class="kv-ctx">Thin — minimal buffer</div></div>
+            <div class="kv"><div class="kv-label">PBILDT Margin</div><div class="kv-val">7.24%</div><div class="kv-ctx">Below industry avg 10–12%</div></div>
+            <div class="kv"><div class="kv-label">Balance Sheet</div><div class="kv-val">2.05x</div><div class="kv-ctx">Gearing; ₹27 Cr free cash</div></div>
+          </div>
+        </div>
+        <div class="exec-section">
+          <div class="exec-section-title">The 10 Strategic Truths</div>
+          <div id="insights-list">
+            <div class="insight-row">
+              <div class="insight-header" onclick="toggleInsight(this)">
+                <div class="insight-title">1. Volume ≠ profit — top 20% of SKUs drive ~80% of gross profit</div>
+                <div class="insight-expand">Why this matters ↓</div>
+              </div>
+              <div class="insight-body" style="display:none">Rationalizing the bottom 30–40% of SKUs could eliminate 3–6% revenue leakage and free working capital currently trapped in slow-moving inventory. Immediate action: commission SKU-level P&L analysis.</div>
+            </div>
+            <div class="insight-row">
+              <div class="insight-header" onclick="toggleInsight(this)">
+                <div class="insight-title">2. Geography matters more than product count — 3–5 markets drive ROIC</div>
+                <div class="insight-expand">Why this matters ↓</div>
+              </div>
+              <div class="insight-body" style="display:none">Current 95% US concentration creates catastrophic single-point-of-failure risk. EU, UK, and Middle East markets offer immediate diversification — Tastee Choice brand is transferable with modest investment.</div>
+            </div>
+            <div class="insight-row">
+              <div class="insight-header" onclick="toggleInsight(this)">
+                <div class="insight-title">3. Data blindness is the biggest operational risk</div>
+                <div class="insight-expand">Why this matters ↓</div>
+              </div>
+              <div class="insight-body" style="display:none">Fragmented ERP/data infrastructure means all decisions are reactive. Real-time demand sensing and pricing optimization are estimated to yield 1–2% margin improvement alone.</div>
+            </div>
+            <div class="insight-row">
+              <div class="insight-header" onclick="toggleInsight(this)">
+                <div class="insight-title">4. Distributors control margin — 30% drive 70% of sell-through</div>
+                <div class="insight-expand">Why this matters ↓</div>
+              </div>
+              <div class="insight-body" style="display:none">Concentration in a small number of distributors creates leverage risk. Proactive partnership with top performers while diversifying the remainder is recommended within 90 days.</div>
+            </div>
+            <div class="insight-row">
+              <div class="insight-header" onclick="toggleInsight(this)">
+                <div class="insight-title">5. AI is leverage, not garnish — demand sensing and freight are real ROI</div>
+                <div class="insight-expand">Why this matters ↓</div>
+              </div>
+              <div class="insight-body" style="display:none">Freight is a silent margin killer: partial containers, reactive booking, and poor load planning represent recoverable costs. AI-driven logistics optimization is the highest-ROI technology investment available today.</div>
+            </div>
+          </div>
+        </div>
+        <div class="exec-section">
+          <div class="exec-section-title">The Two Futures</div>
+          <div class="two-col">
+            <div class="card" style="border-color:#9fcfb3">
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;color:#2d7a45;text-transform:uppercase;margin-bottom:8px">Path A — Transformation</div>
+              <div style="font-size:13px;color:var(--text);line-height:1.55;margin-bottom:12px">Aggressively address regulatory crisis, professionalize governance, diversify markets, leverage Tastee Choice brand.</div>
+              <div style="font-size:18px;font-weight:500;color:#2d7a45">₹1,500–2,500 Cr</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:3px">Estimated enterprise value</div>
+            </div>
+            <div class="card" style="border-color:#f5c1c1">
+              <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;color:#c94040;text-transform:uppercase;margin-bottom:8px">Path B — Decline</div>
+              <div style="font-size:13px;color:var(--text);line-height:1.55;margin-bottom:12px">Deny, delay, hope crisis passes. US tariffs + FDA + retailer exodus gradually erode the business.</div>
+              <div style="font-size:18px;font-weight:500;color:#c94040">₹200–500 Cr</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:3px">Or liquidation in 3 years</div>
+            </div>
+          </div>
+          <div class="card" style="background:#fff8ec;border-color:#facb75;margin-top:0">
+            <div style="font-size:13px;color:#7a4d0a;line-height:1.6">
+              <strong style="color:#5a3008">The window for Path A is closing.</strong> Delays in decisive action increase the probability of a lower-value outcome and reduce the range of available strategic options.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-risks" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Key Risks</div>
+        <div class="meta-pills"><span class="pill pill-caution">3 Critical · 5 High</span></div>
+      </div>
+      <div class="exec-content">
+        <div class="exec-section">
+          <div class="exec-section-title">Critical Risks</div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div>
+                <div class="insight-title">FDA Import Alert + TVPRA Forced Labor Listing</div>
+                <span class="badge badge-red" style="margin-top:4px">Critical · Immediate</span>
+              </div>
+              <div class="insight-expand">Show analysis ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Active regulatory blocks on US imports from the Amalapuram facility (Choice Canning Unit II). Forced labor allegations under DOL/TVPRA create compounding legal, reputational, and market access risk. The Tastee Choice brand — the company's most valuable asset — faces retailer delisting if this escalates. Immediate action: commission independent labor audit within 30 days and engage Tier-1 crisis communications firm.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div>
+                <div class="insight-title">US Tariff Escalation: 58.26% Combined Duty</div>
+                <span class="badge badge-red" style="margin-top:4px">Critical · Structural</span>
+              </div>
+              <div class="insight-expand">Show analysis ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Combined anti-dumping + countervailing duties make Indian shrimp exports structurally uncompetitive. Ecuador: 0%. Indonesia: 2.99%. Vietnam: 25.76%. India: 58.26%. Without geographic diversification or tariff relief, the primary revenue stream faces permanent erosion. The PLI scheme offers ₹67 Cr remaining — maximize before the window closes.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div>
+                <div class="insight-title">Outlaw Ocean / NBC News Reputational Contagion</div>
+                <span class="badge badge-amber" style="margin-top:4px">High · Ongoing</span>
+              </div>
+              <div class="insight-expand">Show analysis ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Investigative journalism linking Indian seafood industry to forced labor creates a permanent digital record. Major retail partners (Aldi, Wakefern, AWG) face ESG pressure to delist Indian seafood suppliers. Crisis communications capability must be established immediately — not reactively.</div>
+          </div>
+        </div>
+        <div class="exec-section">
+          <div class="exec-section-title">High Risks — Governance & Structural</div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div>
+                <div class="insight-title">Key-Person Dependency: Jose Thomas (70+, no succession plan)</div>
+                <span class="badge badge-amber" style="margin-top:4px">High · Long-term</span>
+              </div>
+              <div class="insight-expand">Why this matters ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Jose Thomas has run this business since age 17 (1966). No public succession plan, no professional CEO, no independent board oversight. For a ₹2,000 Cr company, this is a dealbreaker for PE investors and a red flag for major retail partners. No independent directors exist — all four are family members or close associates.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div>
+                <div class="insight-title">Thin Financial Cushion: ₹27 Cr Free Cash, 2.05x Gearing</div>
+                <span class="badge badge-amber" style="margin-top:4px">High · Watch</span>
+              </div>
+              <div class="insight-expand">Why this matters ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Paid-up capital ₹9.99 Cr against revenue of ₹1,970 Cr — a 200x revenue-to-capital ratio. Open charges ₹417.90 Cr with ₹224.68 Cr settled. Any regulatory shock, retailer exit, or freight disruption could trigger a liquidity crisis. Working capital optimization is the fastest path to strengthening the balance sheet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-oppty" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Opportunities</div>
+        <div class="meta-pills"><span class="pill" style="background:#eef7f2;color:#1a5c30;border:0.5px solid #9fcfb3">₹1,500–2,500 Cr Upside</span></div>
+      </div>
+      <div class="exec-content">
+        <div class="exec-section">
+          <div class="exec-section-title">Top Enterprise Value Expansion Levers</div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">1. Resolve FDA Import Alert — immediate valuation impact</div><span class="badge badge-red" style="margin-top:4px">Act Now</span></div>
+              <div class="insight-expand">Show detail ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Clearing the FDA Import Alert and TVPRA listing is the single highest-impact action available. Each month of delay costs revenue, credibility, and deal-readiness. Engage FDA directly with a documented remediation roadmap — present to all major retail partners within 60 days.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">2. Grow Tastee Choice to $100M+ standalone brand</div><span class="badge badge-green" style="margin-top:4px">High Potential</span></div>
+              <div class="insight-expand">Show detail ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Tastee Choice is the company's most defensible asset — brand equity built over decades in US retail. Extending into foodservice, DTC e-commerce, and ethnic diaspora markets (which pay premiums) could add $30–50M revenue. The brand is currently under-leveraged as a commoditized shrimp label.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">3. Optimize working capital — free ₹50–75 Cr</div><span class="badge badge-amber" style="margin-top:4px">90-Day Win</span></div>
+              <div class="insight-expand">Show detail ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Working capital cycle is 90–120 days; cash trapped exceeds 10–15% of revenue. SKU rationalization, distributor payment term renegotiation, and freight optimization can collectively free ₹50–75 Cr — providing immediate headroom for regulatory remediation costs and investment.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">4. Maximize PLI scheme realization — ₹67 Cr remaining</div><span class="badge badge-green" style="margin-top:4px">Government Incentive</span></div>
+              <div class="insight-expand">Show detail ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">The Production Linked Incentive scheme offers ₹67 Cr in remaining entitlements — this is essentially risk-free cash flow if compliance is maintained. The Bapatla facility is PLI-eligible and represents the cleanest processing asset in the portfolio.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">5. Appoint independent board — governance premium 15–20%</div><span class="badge badge-amber" style="margin-top:4px">60 Days</span></div>
+              <div class="insight-expand">Show detail ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Professional governance is a prerequisite for any PE/IPO transaction and a trust signal for major retailers. Two independent directors with seafood/FMCG experience would materially improve enterprise valuation multiples and open the door to strategic partnership conversations.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-fin" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Financial Impact</div>
+        <div class="meta-pills"><span class="pill pill-caution">BBB Stable · 2.05x Gearing</span></div>
+      </div>
+      <div class="exec-content">
+        <div class="kv-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">
+          <div class="kv"><div class="kv-label">Revenue FY25</div><div class="kv-val">₹1,970 Cr</div><div class="kv-ctx">~$235M · +7.34% YoY</div></div>
+          <div class="kv"><div class="kv-label">Revenue FY24</div><div class="kv-val">₹1,782 Cr</div><div class="kv-ctx">Consolidated · ~$213M</div></div>
+          <div class="kv"><div class="kv-label">Revenue FY23</div><div class="kv-val">₹1,980 Cr</div><div class="kv-ctx">Peak year</div></div>
+          <div class="kv"><div class="kv-label">PBILDT Margin</div><div class="kv-val">7.24%</div><div class="kv-ctx">Industry avg: 10–12%</div></div>
+          <div class="kv"><div class="kv-label">Net Margin</div><div class="kv-val">2.75%</div><div class="kv-ctx">Thin — minimal buffer</div></div>
+          <div class="kv"><div class="kv-label">Free Cash</div><div class="kv-val">₹27 Cr</div><div class="kv-ctx">Very tight headroom</div></div>
+          <div class="kv"><div class="kv-label">Gearing</div><div class="kv-val">2.05x</div><div class="kv-ctx">Improved from 2.83x</div></div>
+          <div class="kv"><div class="kv-label">Paid-up Capital</div><div class="kv-val">₹9.99 Cr</div><div class="kv-ctx">200x revenue-to-capital</div></div>
+          <div class="kv"><div class="kv-label">Credit Rating</div><div class="kv-val">BBB</div><div class="kv-ctx">CARE Stable / A3+</div></div>
+        </div>
+        <div class="card" style="background:#fff8ec;border-color:#facb75">
+          <div style="font-size:13px;color:#7a4d0a;line-height:1.6">
+            <strong style="color:#5a3008">Margin gap is the strategic priority.</strong> At 7.24% PBILDT vs 10–12% industry average, approximately ₹55–90 Cr of annual profit is being left on the table. The Bapatla facility and SKU rationalization are the two fastest paths to margin recovery.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-ops" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Operations</div>
+        <div class="meta-pills"><span class="pill pill-caution">2 Facilities · 1 Under Alert</span></div>
+      </div>
+      <div class="exec-content">
+        <div class="exec-section">
+          <div class="exec-section-title">Facility Status</div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">Amalapuram Unit II — Under FDA Import Alert</div><span class="badge badge-red" style="margin-top:4px">Action Required</span></div>
+              <div class="insight-expand">Details ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Import Alert 16-129 is active. All product from this facility is currently detained at US entry. This is the primary regulatory crisis and must be resolved before any strategic transactions can proceed. Independent food safety audit is the first step.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">Bapatla Facility — PLI-Eligible, Clean Asset</div><span class="badge badge-green" style="margin-top:4px">Strategic Asset</span></div>
+              <div class="insight-expand">Details ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Newer facility eligible for PLI incentives. USDA/SQF certified Pittston PA facility provides US manufacturing capability. Bapatla should be the primary production base for US-bound exports while Amalapuram remediation proceeds.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">SKU Complexity: Bottom 30–40% create 3–6% revenue leakage</div><span class="badge badge-amber" style="margin-top:4px">Quick Win</span></div>
+              <div class="insight-expand">Details ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">SKU rationalization is the fastest path to margin improvement. Commission a full SKU-level P&L analysis — expected to identify ₹60–120 Cr in recoverable contribution margin within 60 days. Working capital cycle will also compress from 90–120 days toward 60–75 days.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-mkt" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Market Intelligence</div>
+        <div class="meta-pills"><span class="pill pill-caution">95% US Concentration</span></div>
+      </div>
+      <div class="exec-content">
+        <div class="exec-section">
+          <div class="exec-section-title">Competitive Tariff Landscape</div>
+          <div class="kv-grid" style="grid-template-columns:repeat(4,1fr)">
+            <div class="kv" style="background:#fff0f0;border:0.5px solid #f5c1c1"><div class="kv-label">India (Choice)</div><div class="kv-val" style="color:#c94040">58.26%</div><div class="kv-ctx">Combined AD + CVD</div></div>
+            <div class="kv" style="background:#eef7f2;border:0.5px solid #9fcfb3"><div class="kv-label">Ecuador</div><div class="kv-val" style="color:#2d7a45">0%</div><div class="kv-ctx">Tariff-free access</div></div>
+            <div class="kv" style="background:#eef7f2;border:0.5px solid #9fcfb3"><div class="kv-label">Indonesia</div><div class="kv-val" style="color:#2d7a45">2.99%</div><div class="kv-ctx">Near-tariff-free</div></div>
+            <div class="kv"><div class="kv-label">Vietnam</div><div class="kv-val" style="color:#b87a1a">25.76%</div><div class="kv-ctx">Elevated but manageable</div></div>
+          </div>
+        </div>
+        <div class="exec-section">
+          <div class="exec-section-title">Market Insights</div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">Diaspora markets will pay premiums — underexploited</div><span class="badge badge-green" style="margin-top:4px">Opportunity</span></div>
+              <div class="insight-expand">Show detail ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Indian, South Asian, and Southeast Asian diaspora communities in the US, UK, and Middle East represent a premium pricing opportunity. Tastee Choice's brand equity in ethnic grocery channels is currently under-leveraged. Foodservice channel entry offers additional revenue diversification.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">EU/UK entry — immediate diversification priority</div><span class="badge badge-amber" style="margin-top:4px">90-Day Planning</span></div>
+              <div class="insight-expand">Show detail ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">India-UK FTA and India-EU FTA negotiations present a structural window. EU currently subjects Indian seafood to 50% testing — FTA provisions could eliminate this. Begin EU market entry planning within 90 days with a 3-year target of reducing US concentration below 70%.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-reco" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Strategic Recommendations</div>
+      </div>
+      <div class="exec-content">
+        <div class="exec-section">
+          <div class="exec-section-title">Immediate Actions (30–60 Days)</div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">Commission independent labor and food safety audits</div><span class="badge badge-red" style="margin-top:4px">30 Days · Board Mandate</span></div>
+              <div class="insight-expand">Rationale ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">This is non-negotiable. Without an independent audit, the FDA Import Alert cannot be cleared, the TVPRA listing cannot be remediated, and no credible narrative can be presented to retailers or investors. Engage a Tier-1 food safety consultancy with FDA remediation experience.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">Engage Tier-1 crisis communications firm</div><span class="badge badge-red" style="margin-top:4px">Immediately</span></div>
+              <div class="insight-expand">Rationale ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">The Outlaw Ocean and NBC News coverage creates a permanent digital record. Without proactive narrative management, retailer conversations will be reactive and defensive. A crisis communications firm with US seafood/FMCG experience should be engaged before any retailer meetings.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">Appoint minimum 2 independent directors</div><span class="badge badge-amber" style="margin-top:4px">60 Days</span></div>
+              <div class="insight-expand">Rationale ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">The current all-family board is the single largest obstacle to PE investment and strategic partnership. Two independent directors with FMCG, regulatory, or US market experience would provide immediate credibility signal to all stakeholders.</div>
+          </div>
+          <div class="insight-row">
+            <div class="insight-header" onclick="toggleInsight(this)">
+              <div><div class="insight-title">Present remediation roadmap to all major retail partners</div><span class="badge badge-amber" style="margin-top:4px">60 Days</span></div>
+              <div class="insight-expand">Rationale ↓</div>
+            </div>
+            <div class="insight-body" style="display:none">Aldi, Wakefern, and AWG are the primary retailer concentration risks. A structured, documented remediation roadmap — presented proactively, not reactively — significantly reduces the probability of delisting. Retailers prefer suppliers who demonstrate accountability over those who go silent.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-action" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Action Plan</div>
+      </div>
+      <div class="exec-content">
+        <div class="exec-section">
+          <div class="exec-section-title">30-Day Sprint</div>
+          <div class="insight-row"><div class="insight-title" style="padding:12px 0;font-size:13px">Commission independent labor audit · Engage crisis communications firm · Begin FDA remediation process</div></div>
+        </div>
+        <div class="exec-section">
+          <div class="exec-section-title">60-Day Milestones</div>
+          <div class="insight-row"><div class="insight-title" style="padding:12px 0;font-size:13px">Appoint 2 independent directors · Present retailer remediation roadmap · Initiate succession planning conversation</div></div>
+        </div>
+        <div class="exec-section">
+          <div class="exec-section-title">90-Day Goals</div>
+          <div class="insight-row"><div class="insight-title" style="padding:12px 0;font-size:13px">Begin EU/UK market entry planning · Launch SKU rationalization · Maximize PLI scheme realization (₹67 Cr)</div></div>
+        </div>
+        <div class="exec-section">
+          <div class="exec-section-title">3-Year Horizon</div>
+          <div class="insight-row"><div class="insight-title" style="padding:12px 0;font-size:13px">US concentration below 70% · Tastee Choice at $100M+ · PBILDT margin above 8% · Gearing below 1.2x · PE/IPO ready</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-appendix" class="hidden-section">
+      <div class="header-bar">
+        <div class="breadcrumb">Overview › Appendix</div>
+      </div>
+      <div class="exec-content">
+        <div class="card">
+          <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px">Source: Choice Group Master Intelligence Briefing</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6">Synthesizes intelligence from three independent consultant assessments, CARE Ratings credit analysis (Oct 2024), FDA Import Alert records, DOL/TVPRA listings, The Outlaw Ocean Project investigation, NBC News reporting, US Federal Register trade determinations, ICRIER policy analysis, Shrimp Insights industry data, Volza trade data, D&B company profiles, QSR Magazine, Mordor Intelligence, National Restaurant Association, and 40+ additional public and proprietary sources.</div>
+          <div style="font-size:11px;color:var(--hint);margin-top:12px">Classification: CONFIDENTIAL — Board & Advisory Eyes Only · Version 1.0 · May 12, 2026</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
-    <div class="section">
-      <h2>Movies</h2>
-      <div class="links">
-        <a href="https://d3.neilbuilds.com/" target="_blank" rel="noopener">Drishyam 3 — US Release</a>
-        <a href="https://d3.neilbuilds.com/game.html" target="_blank" rel="noopener">Drishyam 3 — The Game</a>
-        <a href="https://www.aashirvad-cinemas.com/" target="_blank" rel="noopener">Aashirvad Cinemas Concept</a>
-        <a href="https://patriot.neilbuilds.com" target="_blank" rel="noopener">Patriot — US Release</a>
-        <a href="https://patriot-mission2.vercel.app/" target="_blank" rel="noopener">Patriot — The Game</a>
-      </div>
-    </div>
 
-    <div class="section">
-      <h2>Builds</h2>
-      <div class="links">
-        <a href="https://biblequiz.neilbuilds.com" target="_blank" rel="noopener">Bible Quiz</a>
-        <a href=" https://alexpeter.vercel.app"_blank" rel="noopener">Alex Peter Group</a>
-        <a href="https://antorubytravel.vercel.app/" target="_blank" rel="noopener">Travel Itinerary Builder</a>
-        <a href="https://littlelightco.lovable.app" target="_blank" rel="noopener">Little Light Co — Candle Website</a>
-        <a href="https://aangan-home-hub.lovable.app" target="_blank" rel="noopener">Aangan TV Android App</a>
-        <a href="https://manx-bom-command.lovable.app" target="_blank" rel="noopener">Meyers Manx BOM Intelligence Website</a>
-        <a href="https://ppl.neilbuilds.com/" target="_blank" rel="noopener">Pilot License Test App</a>
-        <a href="https://kl.budget.neilbuilds.com/" target="_blank" rel="noopener">Kerala Budget Overview</a>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>GPT Agents</h2>
-      <div class="links">
-        <a href="https://chatgpt.com/g/g-69e534b20ca88191b591fe06a5335966-prompt-architect" target="_blank" rel="noopener">GPT Agent Prompt Generator</a>
-        <a href="https://chatgpt.com/g/g-69deaf921bc481918caec808eb61e028-birthday-art-gpt" target="_blank" rel="noopener">GPT Agent for Birthday Greetings</a>
-        <a href="https://linkmone.com/VISHU" target="_blank" rel="noopener">GPT Agent for Custom Vishu Greetings</a>
-        <a href="https://linkmone.com/VOLT" target="_blank" rel="noopener">GPT Agent for Red Bull Style Cartoon Headshots</a>
-        <a href="https://chatgpt.com/g/g-69fd7a1e72bc8191a2cb1d575a64572f-drishyam-noir" target="_blank" rel="noopener">Drishyam Noir — Image Generator</a>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>RB</h2>
-      <div class="links">
-        <a href="https://rbpitwall.lovable.app/" target="_blank" rel="noopener">Pit Wall <span class="tag">internal</span></a>
-        <a href="https://rbna-ai-buildday.vercel.app" target="_blank" rel="noopener">AI Build Day — Judge Site <span class="tag">internal</span></a>
-        <a href="https://rbna.it/aibuild" target="_blank" rel="noopener">AI Build Day Results</a>
-      </div>
-    </div>
-
-    <footer>
-      <a href="https://github.com/neilbuilds" target="_blank" rel="noopener">github</a>
-    </footer>
-  </div>
-</body>
-</html>
+<script>
+function showSection(id) {
+  var sections = document.querySelectorAll('[id^="section-"]');
+  sections.forEach(function(s) { s.className = 'hidden-section'; });
+  var target = document.getElementById('section-' + id);
+  if (target) target.className = 'active-section';
+  var items = document.querySelectorAll('.nav-item');
+  items.forEach(function(it) { it.classList.remove('active'); it.removeAttribute('aria-current'); });
+  var map = { overview:0, exec:1, risks:2, oppty:3, fin:4, ops:5, mkt:6, reco:7, action:8, appendix:9 };
+  if (map[id] !== undefined) {
+    items[map[id]].classList.add('active');
+    items[map[id]].setAttribute('aria-current', 'page');
+  }
+}
+function toggleInsight(header) {
+  var body = header.nextElementSibling;
+  var expandBtn = header.querySelector('.insight-expand');
+  if (body && body.classList.contains('insight-body')) {
+    var isHidden = body.style.display === 'none' || body.style.display === '';
+    body.style.display = isHidden ? 'block' : 'none';
+    if (expandBtn) expandBtn.textContent = isHidden ? 'Close ↑' : 'Why this matters ↓';
+  }
+}
+</script>
