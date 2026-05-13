@@ -1,792 +1,187 @@
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#0a1628;--gold:#c8a96e;--gold-dim:rgba(200,169,110,0.12);
-  --rb:#fcebeb;--rt:#f7c1c1;--rd:#c94040;--rdt:#9a2020;
-  --ab:#fff8ec;--at:#facb75;--ad:#b87a1a;--adt:#7a4d0a;
-  --gb:#eef7f2;--gt:#9fcfb3;--gd:#2d7a45;--gdt:#1a5c30;
-  --bb:#e6f1fb;--bt:#b5d4f4;--bd:#185fa5;--bdt:#0c447c;
-  --surf:var(--color-background-primary);
-  --surf2:var(--color-background-secondary);
-  --bord:var(--color-border-tertiary);
-  --bord2:var(--color-border-secondary);
-  --tx:var(--color-text-primary);
-  --mu:var(--color-text-secondary);
-  --hi:var(--color-text-tertiary)
-}
-.shell{display:flex;min-height:820px;font-size:14px;line-height:1.5;border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);overflow:hidden}
-.sb{width:224px;flex-shrink:0;background:#0a1628;color:#c8d4e8;display:flex;flex-direction:column}
-.sb-logo{padding:18px 18px 14px;border-bottom:0.5px solid rgba(255,255,255,0.07)}
-.sb-mark{font-size:10px;font-weight:500;letter-spacing:0.14em;color:#c8a96e;text-transform:uppercase}
-.sb-name{font-size:15px;font-weight:500;color:#e8eef5;margin-top:2px}
-.sb-nav{padding:12px 0 6px;flex:1}
-.sb-lbl{font-size:10px;font-weight:500;letter-spacing:0.1em;color:rgba(200,217,236,0.38);text-transform:uppercase;padding:0 16px;margin-bottom:4px}
-.ni{display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:13px;color:rgba(200,217,236,0.65);cursor:pointer;border-left:3px solid transparent;transition:all 0.12s}
-.ni:hover{background:rgba(255,255,255,0.04);color:#e8eef5}
-.ni.act{background:rgba(200,169,110,0.1);color:#c8a96e;border-left-color:#c8a96e}
-.ni i{font-size:14px}
-.sb-div{border:none;border-top:0.5px solid rgba(255,255,255,0.06);margin:6px 0}
-.ceo-wrap{margin:10px 12px 8px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
-.ceo-lbl{font-size:12px;color:rgba(200,217,236,0.7)}
-.ceo-pill{width:34px;height:19px;background:rgba(255,255,255,0.12);border-radius:10px;position:relative;transition:background 0.2s}
-.ceo-pill.on{background:#c8a96e}
-.ceo-thumb{width:15px;height:15px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:left 0.2s}
-.ceo-pill.on .ceo-thumb{left:17px}
-.ai-btn{margin:0 12px 16px;background:rgba(200,169,110,0.15);border:0.5px solid rgba(200,169,110,0.35);border-radius:9px;padding:10px 12px;cursor:pointer;display:flex;align-items:center;gap:8px}
-.ai-btn-icon{font-size:15px;color:#c8a96e}
-.ai-btn-txt{font-size:12px;color:#c8a96e;font-weight:500}
-.main{flex:1;background:var(--surf2);display:flex;flex-direction:column;overflow:hidden}
-.hdr{background:var(--surf);border-bottom:0.5px solid var(--bord);padding:12px 22px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.search-wrap{flex:1;display:flex;align-items:center;gap:8px;background:var(--surf2);border:0.5px solid var(--bord2);border-radius:8px;padding:7px 12px;cursor:text}
-.search-wrap:focus-within{border-color:rgba(200,169,110,0.5);background:var(--surf)}
-.search-wrap i{font-size:15px;color:var(--mu);flex-shrink:0}
-.search-input{border:none;background:transparent;font-size:13px;color:var(--tx);flex:1;outline:none}
-.search-input::placeholder{color:var(--hi)}
-.search-kbd{font-size:10px;color:var(--hi);border:0.5px solid var(--bord2);border-radius:4px;padding:2px 5px;white-space:nowrap}
-.hdr-pills{display:flex;gap:6px;flex-shrink:0}
-.pill{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;border:0.5px solid;white-space:nowrap}
-.pill-warn{background:var(--ab);color:var(--adt);border-color:var(--at)}
-.pill-ai{background:var(--gold-dim);color:#a07828;border-color:rgba(200,169,110,0.4)}
-.pg{padding:18px 22px;overflow-y:auto;flex:1}
-.sec{display:none}
-.sec.act{display:block}
-
-.ai-panel{background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);margin-bottom:16px;overflow:hidden}
-.ai-panel-hdr{padding:14px 18px;border-bottom:0.5px solid var(--bord);display:flex;align-items:center;gap:8px}
-.ai-panel-title{font-size:13px;font-weight:500;color:var(--tx)}
-.ai-panel-sub{font-size:11px;color:var(--mu);margin-left:auto}
-.ai-body{padding:16px 18px}
-
-.chat-area{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;min-height:60px}
-.msg{display:flex;gap:10px;align-items:flex-start}
-.msg.user{flex-direction:row-reverse}
-.msg-bubble{max-width:78%;padding:10px 14px;border-radius:var(--border-radius-lg);font-size:13px;line-height:1.55}
-.msg.ai .msg-bubble{background:var(--surf2);color:var(--tx);border:0.5px solid var(--bord)}
-.msg.user .msg-bubble{background:#0a1628;color:#e8eef5}
-.msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:2px}
-.msg-avatar.ai{background:var(--gold-dim);color:#a07828;border:0.5px solid rgba(200,169,110,0.3)}
-.msg-avatar.user{background:#162035;color:#c8a96e}
-.typing{display:flex;align-items:center;gap:5px;padding:10px 14px;background:var(--surf2);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);width:fit-content}
-.typing-dot{width:5px;height:5px;border-radius:50%;background:var(--mu);animation:pulse 1.2s infinite}
-.typing-dot:nth-child(2){animation-delay:0.2s}
-.typing-dot:nth-child(3){animation-delay:0.4s}
-@keyframes pulse{0%,80%,100%{opacity:0.3}40%{opacity:1}}
-.chat-input-row{display:flex;gap:8px;align-items:center}
-.chat-input{flex:1;padding:9px 14px;border:0.5px solid var(--bord2);border-radius:8px;font-size:13px;background:var(--surf);color:var(--tx);outline:none}
-.chat-input:focus{border-color:rgba(200,169,110,0.5)}
-.send-btn{padding:8px 16px;background:#0a1628;color:#c8a96e;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-weight:500;white-space:nowrap}
-.send-btn:disabled{opacity:0.4;cursor:not-allowed}
-
-.suggested-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.sugg{font-size:12px;padding:6px 12px;border:0.5px solid var(--bord2);border-radius:20px;cursor:pointer;color:var(--mu);background:var(--surf);transition:all 0.12s}
-.sugg:hover{border-color:rgba(200,169,110,0.5);color:var(--tx);background:var(--gold-dim)}
-
-.search-results{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.sr-item{background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px;cursor:pointer;transition:border-color 0.12s}
-.sr-item:hover{border-color:var(--bord2)}
-.sr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
-.sr-title{font-size:13px;font-weight:500;color:var(--tx);line-height:1.4}
-.sr-section{font-size:10px;padding:2px 7px;border-radius:11px;font-weight:500;border:0.5px solid;white-space:nowrap}
-.sr-excerpt{font-size:12px;color:var(--mu);line-height:1.5}
-.sr-excerpt mark{background:rgba(200,169,110,0.25);color:var(--tx);border-radius:2px;padding:0 2px}
-.sr-meta{font-size:11px;color:var(--hi);margin-top:5px}
-.search-empty{text-align:center;padding:32px 20px;color:var(--mu)}
-.search-empty i{font-size:32px;display:block;margin-bottom:10px;color:var(--hi)}
-
-.upload-zone{border:1.5px dashed var(--bord2);border-radius:var(--border-radius-lg);padding:32px 24px;text-align:center;cursor:pointer;transition:all 0.15s;margin-bottom:16px}
-.upload-zone:hover,.upload-zone.drag{border-color:rgba(200,169,110,0.5);background:var(--gold-dim)}
-.upload-icon{font-size:32px;color:var(--hi);margin-bottom:10px}
-.upload-title{font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px}
-.upload-sub{font-size:12px;color:var(--mu)}
-.upload-btn{display:inline-block;margin-top:14px;padding:8px 20px;background:#0a1628;color:#c8a96e;border-radius:8px;font-size:13px;cursor:pointer;font-weight:500}
-.file-input{display:none}
-.proc-list{display:flex;flex-direction:column;gap:8px}
-.proc-item{background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:13px 16px;display:flex;align-items:center;gap:12px}
-.proc-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.proc-icon.done{background:var(--gb);color:var(--gd)}
-.proc-icon.proc{background:var(--bb);color:var(--bd)}
-.proc-icon.err{background:var(--rb);color:var(--rd)}
-.proc-info{flex:1}
-.proc-name{font-size:13px;font-weight:500;color:var(--tx)}
-.proc-status{font-size:11px;color:var(--mu);margin-top:2px}
-.proc-bar-wrap{width:100%;height:4px;background:var(--surf2);border-radius:2px;margin-top:6px}
-.proc-bar{height:4px;border-radius:2px;background:var(--bd);transition:width 0.4s}
-
-.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.ig-card{background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px}
-.ig-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
-.ig-card-nm{font-size:10px;font-weight:500;color:var(--mu);text-transform:uppercase;letter-spacing:0.07em}
-.ig-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:11px;border:0.5px solid}
-.ig-title{font-size:13px;color:var(--tx);line-height:1.4}
-.ig-conf{font-size:11px;color:var(--hi);margin-top:5px;display:flex;align-items:center;gap:4px}
-
-.conf-meter{display:flex;gap:2px}
-.conf-seg{width:14px;height:3px;border-radius:1px}
-
-.synthesis-section{margin-bottom:20px}
-.syn-title{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);margin-bottom:10px;padding-bottom:7px;border-bottom:0.5px solid var(--bord)}
-.contradiction-card{background:var(--ab);border:0.5px solid var(--at);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:8px}
-.contradiction-title{font-size:13px;font-weight:500;color:var(--adt);margin-bottom:4px}
-.contradiction-body{font-size:12px;color:var(--adt);line-height:1.55}
-.source-tag{font-size:10px;padding:2px 7px;border:0.5px solid var(--bord2);border-radius:11px;color:var(--mu);margin-right:4px;display:inline-block}
-
-.ceo-feed{display:none;flex-direction:column;padding:18px 22px;gap:10px;overflow-y:auto;flex:1}
-.ceo-feed.act{display:flex}
-.ceo-hdr-card{background:#0a1628;color:#e8eef5;border-radius:var(--border-radius-lg);padding:18px 22px;margin-bottom:4px}
-.ceo-hdr-eye{font-size:10px;font-weight:500;letter-spacing:0.13em;color:rgba(200,169,110,0.8);text-transform:uppercase;margin-bottom:6px}
-.ceo-hdr-stmt{font-size:16px;color:#d4dce8;line-height:1.5}
-.ceo-card{background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:15px 18px}
-.ceo-card.urg{border-left:3px solid var(--rd);border-radius:0 var(--border-radius-lg) var(--border-radius-lg) 0}
-.ceo-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
-.ceo-card-title{font-size:14px;font-weight:500;color:var(--tx);line-height:1.35}
-.ceo-metas{display:flex;gap:5px;flex-wrap:wrap}
-.ceo-why{font-size:13px;color:var(--mu);line-height:1.5;margin-bottom:8px}
-.ceo-act{font-size:12px;color:var(--bd);font-style:italic}
-.ceo-foot{font-size:10px;color:var(--hi);margin-top:6px}
-</style>
-
-<h2 class="sr-only">Choice Group Phase 3 — AI Synthesis Engine with natural language search, RAG pipeline, contradiction detection, and live Claude API integration.</h2>
-
-<div class="shell">
-<nav class="sb" aria-label="Main navigation">
-  <div class="sb-logo">
-    <div class="sb-mark">Intelligence</div>
-    <div class="sb-name">Choice Group</div>
-  </div>
-  <div class="sb-nav">
-    <div class="sb-lbl" style="margin-top:8px">Primary</div>
-    <div class="ni act" onclick="nav('overview')" id="ni-overview"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Overview</div>
-    <div class="ni" onclick="nav('exec')" id="ni-exec"><i class="ti ti-file-description" aria-hidden="true"></i>Exec Summary</div>
-    <div class="ni" onclick="nav('risks')" id="ni-risks"><i class="ti ti-alert-triangle" aria-hidden="true"></i>Key Risks</div>
-    <div class="ni" onclick="nav('oppty')" id="ni-oppty"><i class="ti ti-trending-up" aria-hidden="true"></i>Opportunities</div>
-    <div class="ni" onclick="nav('fin')" id="ni-fin"><i class="ti ti-chart-bar" aria-hidden="true"></i>Financial</div>
-    <div class="ni" onclick="nav('reco')" id="ni-reco"><i class="ti ti-checklist" aria-hidden="true"></i>Recommendations</div>
-    <div class="ni" onclick="nav('action')" id="ni-action"><i class="ti ti-calendar-check" aria-hidden="true"></i>Action Plan</div>
-    <div class="sb-div"></div>
-    <div class="sb-lbl">Phase 3 — AI</div>
-    <div class="ni" onclick="nav('synth')" id="ni-synth"><i class="ti ti-brain" aria-hidden="true"></i>AI Synthesis</div>
-    <div class="ni" onclick="nav('search')" id="ni-search"><i class="ti ti-search" aria-hidden="true"></i>Search</div>
-    <div class="ni" onclick="nav('upload')" id="ni-upload"><i class="ti ti-upload" aria-hidden="true"></i>Upload Reports</div>
-  </div>
-  <div class="ceo-wrap" onclick="toggleCEO()" id="ceo-toggle" role="button" aria-pressed="false" tabindex="0">
-    <div>
-      <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,169,110,0.7);margin-bottom:2px">CEO Mode</div>
-      <div class="ceo-lbl">Board-level feed only</div>
-    </div>
-    <div class="ceo-pill" id="ceo-pill"><div class="ceo-thumb"></div></div>
-  </div>
-  <div class="ai-btn" onclick="nav('synth')">
-    <i class="ti ti-sparkles ai-btn-icon" aria-hidden="true"></i>
-    <div class="ai-btn-txt">Ask the intelligence ↗</div>
-  </div>
-</nav>
-
-<div class="main">
-
-<div class="hdr">
-  <div class="search-wrap" onclick="document.getElementById('global-search').focus()">
-    <i class="ti ti-search" aria-hidden="true"></i>
-    <input class="search-input" id="global-search" placeholder="Search intelligence... (try: tariff, FDA, margins)" autocomplete="off" oninput="handleGlobalSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch()">
-    <span class="search-kbd">⌘K</span>
-  </div>
-  <div class="hdr-pills">
-    <span class="pill pill-ai"><i class="ti ti-sparkles" style="font-size:11px;margin-right:3px" aria-hidden="true"></i>AI Active</span>
-    <span class="pill pill-warn">⚠ Caution</span>
-  </div>
-</div>
-
-<div id="inline-search-results" style="display:none;position:relative;z-index:10;margin:0;padding:0 22px;background:var(--surf);border-bottom:0.5px solid var(--bord)">
-  <div id="isr-list" style="padding:10px 0;max-height:280px;overflow-y:auto"></div>
-</div>
-
-<div id="sec-overview" class="sec act pg">
-  <div style="background:#0a1628;color:#e8eef5;border-radius:var(--border-radius-lg);padding:22px 26px;margin-bottom:16px">
-    <div style="font-size:10px;font-weight:500;letter-spacing:0.13em;color:rgba(200,169,110,0.8);text-transform:uppercase;margin-bottom:8px">Strategic Condition</div>
-    <div style="font-size:17px;line-height:1.55;color:#d4dce8;max-width:560px">Operationally resilient but <strong style="color:#e8d4a8">strategically exposed</strong> — active regulatory blocks, tariff disadvantage, and governance gaps require immediate board action.</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px">
-      <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);border-radius:9px;padding:12px 16px">
-        <div style="font-size:10px;letter-spacing:0.08em;color:rgba(200,217,236,0.45);text-transform:uppercase;margin-bottom:6px">Revenue FY25</div>
-        <div style="font-size:21px;font-weight:500;color:#e8eef5">$235M</div>
-        <div style="font-size:11px;color:rgba(200,217,236,0.5);margin-top:3px">₹1,970 Cr · +7.34% YoY</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);border-radius:9px;padding:12px 16px">
-        <div style="font-size:10px;letter-spacing:0.08em;color:rgba(200,217,236,0.45);text-transform:uppercase;margin-bottom:6px">Upside (Path A)</div>
-        <div style="font-size:21px;font-weight:500;color:#7ec9a0">₹1,500–2,500 Cr</div>
-        <div style="font-size:11px;color:rgba(200,217,236,0.5);margin-top:3px">If transformation executed</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);border-radius:9px;padding:12px 16px">
-        <div style="font-size:10px;letter-spacing:0.08em;color:rgba(200,217,236,0.45);text-transform:uppercase;margin-bottom:6px">Decline (Path B)</div>
-        <div style="font-size:21px;font-weight:500;color:#e87070">₹200–500 Cr</div>
-        <div style="font-size:11px;color:rgba(200,217,236,0.5);margin-top:3px">Or liquidation — inaction</div>
-      </div>
-    </div>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:16px 18px">
-      <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:var(--mu);text-transform:uppercase;margin-bottom:11px">Top 3 Risks</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:20px;height:20px;border-radius:50%;background:var(--rb);color:var(--rdt);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</div><div style="font-size:13px;color:var(--tx);line-height:1.4">FDA Import Alert + TVPRA forced labor listing</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:20px;height:20px;border-radius:50%;background:var(--rb);color:var(--rdt);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</div><div style="font-size:13px;color:var(--tx);line-height:1.4">US tariff escalation: 58.26% combined duty</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:20px;height:20px;border-radius:50%;background:var(--ab);color:var(--adt);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</div><div style="font-size:13px;color:var(--tx);line-height:1.4">Outlaw Ocean reputational contagion</div></div>
-      </div>
-    </div>
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:16px 18px">
-      <div style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:var(--mu);text-transform:uppercase;margin-bottom:11px">Top 3 Priorities</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:20px;height:20px;border-radius:50%;background:var(--gb);color:var(--gdt);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</div><div style="font-size:13px;color:var(--tx);line-height:1.4">Resolve regulatory crisis — FDA + TVPRA</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:20px;height:20px;border-radius:50%;background:var(--gb);color:var(--gdt);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</div><div style="font-size:13px;color:var(--tx);line-height:1.4">Geographic diversification — EU, UK, Middle East</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start"><div style="width:20px;height:20px;border-radius:50%;background:var(--gb);color:var(--gdt);font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</div><div style="font-size:13px;color:var(--tx);line-height:1.4">Governance professionalization — independent board</div></div>
-      </div>
-    </div>
-  </div>
-  <div style="background:var(--surf);border:0.5px solid rgba(200,169,110,0.3);border-radius:var(--border-radius-lg);padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="nav('synth')">
-    <i class="ti ti-sparkles" style="font-size:18px;color:#a07828" aria-hidden="true"></i>
-    <div style="flex:1">
-      <div style="font-size:13px;font-weight:500;color:var(--tx)">Ask the AI Synthesis Engine</div>
-      <div style="font-size:12px;color:var(--mu)">Ask any question about Choice Group — the AI will synthesize from all 40+ source documents</div>
-    </div>
-    <i class="ti ti-arrow-right" style="font-size:15px;color:var(--mu)" aria-hidden="true"></i>
-  </div>
-</div>
-
-<div id="sec-synth" class="sec pg">
-  <div class="ai-panel">
-    <div class="ai-panel-hdr">
-      <i class="ti ti-sparkles" style="font-size:15px;color:#a07828" aria-hidden="true"></i>
-      <span class="ai-panel-title">AI Synthesis Engine</span>
-      <span class="ai-panel-sub">Powered by Claude · RAG over 40+ sources</span>
-    </div>
-    <div class="ai-body">
-      <div class="chat-area" id="chat-area">
-        <div class="msg ai">
-          <div class="msg-avatar ai">AI</div>
-          <div class="msg-bubble">I've synthesized intelligence across 40+ sources covering Choice Group's financial performance, regulatory exposure, competitive landscape, and governance structure. Ask me anything — I'll cite my sources and flag confidence levels.<br><br>Try: <em>"What is the single biggest risk to the business right now?"</em></div>
-        </div>
-      </div>
-      <div class="suggested-row" id="suggestions">
-        <div class="sugg" onclick="askSugg(this)">What is the single biggest risk?</div>
-        <div class="sugg" onclick="askSugg(this)">How does the FDA alert affect revenue?</div>
-        <div class="sugg" onclick="askSugg(this)">What are the fastest paths to margin improvement?</div>
-        <div class="sugg" onclick="askSugg(this)">Compare Path A vs Path B outcomes</div>
-        <div class="sugg" onclick="askSugg(this)">What should the board do in the next 30 days?</div>
-        <div class="sugg" onclick="askSugg(this)">Explain the tariff disadvantage vs Ecuador</div>
-      </div>
-      <div class="chat-input-row">
-        <input class="chat-input" id="chat-input" placeholder="Ask anything about Choice Group..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}" maxlength="500">
-        <button class="send-btn" id="send-btn" onclick="sendChat()"><i class="ti ti-send" style="font-size:14px" aria-hidden="true"></i></button>
-      </div>
-    </div>
-  </div>
-
-  <div class="synthesis-section">
-    <div class="syn-title">Cross-source synthesis — contradiction detection</div>
-    <div class="contradiction-card">
-      <div class="contradiction-title"><i class="ti ti-alert-triangle" style="font-size:13px;margin-right:5px" aria-hidden="true"></i>Revenue trajectory signal conflict</div>
-      <div class="contradiction-body">CARE Ratings (Oct 2024) reports FY24 revenue down ~10% to ₹1,782 Cr from ₹1,980 Cr (FY23). However, provisional FY25 data shows recovery to ₹1,970 Cr (+7.34%). One consultant assessment flags this as "fragile recovery contingent on FDA resolution," while another treats it as "durable growth momentum." The briefing adopts the cautious interpretation. <span class="source-tag">CARE Ratings</span><span class="source-tag">Consultant A</span><span class="source-tag">Consultant B</span></div>
-    </div>
-    <div class="contradiction-card">
-      <div class="contradiction-title"><i class="ti ti-alert-triangle" style="font-size:13px;margin-right:5px" aria-hidden="true"></i>Margin improvement timeline disagreement</div>
-      <div class="contradiction-body">Two consultant assessments diverge on the speed of margin recovery. Consultant A projects PBILDT reaching 8%+ within 18 months via SKU rationalization alone. Consultant B argues margin improvement requires full resolution of the FDA alert first, extending the timeline to 24–36 months. Both agree the Bapatla facility is the key lever. <span class="source-tag">Consultant A</span><span class="source-tag">Consultant C</span></div>
-    </div>
-  </div>
-
-  <div class="synthesis-section">
-    <div class="syn-title">AI-generated insight clusters — cross-document themes</div>
-    <div class="insight-grid">
-      <div class="ig-card">
-        <div class="ig-card-top"><div class="ig-card-nm">Regulatory</div><span class="ig-badge" style="background:var(--rb);color:var(--rdt);border-color:var(--rt)">Critical</span></div>
-        <div class="ig-title">FDA Import Alert is the single thread that, if pulled, could unravel the entire US revenue base</div>
-        <div class="ig-conf"><div class="conf-meter"><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--gd)"></div></div>HIGH · 8 sources</div>
-      </div>
-      <div class="ig-card">
-        <div class="ig-card-top"><div class="ig-card-nm">Financial</div><span class="ig-badge" style="background:var(--ab);color:var(--adt);border-color:var(--at)">High</span></div>
-        <div class="ig-title">Working capital is the fastest lever — ₹50–75 Cr recoverable within 90 days, no CapEx required</div>
-        <div class="ig-conf"><div class="conf-meter"><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--bord2)"></div></div>MEDIUM · 5 sources</div>
-      </div>
-      <div class="ig-card">
-        <div class="ig-card-top"><div class="ig-card-nm">Strategic</div><span class="ig-badge" style="background:var(--ab);color:var(--adt);border-color:var(--at)">High</span></div>
-        <div class="ig-title">Geographic diversification is existential, not optional — US concentration makes every other risk unhedgeable</div>
-        <div class="ig-conf"><div class="conf-meter"><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--gd)"></div></div>HIGH · 11 sources</div>
-      </div>
-      <div class="ig-card">
-        <div class="ig-card-top"><div class="ig-card-nm">Governance</div><span class="ig-badge" style="background:var(--ab);color:var(--adt);border-color:var(--at)">High</span></div>
-        <div class="ig-title">Board composition is a dealbreaker for PE/IPO — fixable in 60 days but currently blocking all strategic options</div>
-        <div class="ig-conf"><div class="conf-meter"><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--gd)"></div><div class="conf-seg" style="background:var(--gd)"></div></div>HIGH · 6 sources</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="sec-search" class="sec pg">
-  <div class="synthesis-section">
-    <div class="syn-title">Natural language search — 40+ source documents</div>
-    <div style="display:flex;gap:8px;margin-bottom:16px">
-      <input class="chat-input" id="full-search-input" placeholder="Search the intelligence base..." oninput="fullSearch(this.value)" style="flex:1">
-      <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-        <span style="font-size:11px;color:var(--mu)">Filter:</span>
-        <select id="section-filter" onchange="fullSearch(document.getElementById('full-search-input').value)" style="font-size:12px;padding:6px 10px;border:0.5px solid var(--bord2);border-radius:7px;background:var(--surf);color:var(--tx)">
-          <option value="">All sections</option>
-          <option value="Risks">Risks</option>
-          <option value="Financial">Financial</option>
-          <option value="Operations">Operations</option>
-          <option value="Market">Market</option>
-          <option value="Governance">Governance</option>
-          <option value="Opportunities">Opportunities</option>
-        </select>
-      </div>
-    </div>
-    <div id="search-results-area">
-      <div style="text-align:center;padding:40px 20px;color:var(--mu)">
-        <i class="ti ti-search" style="font-size:28px;display:block;margin-bottom:10px;color:var(--hi)" aria-hidden="true"></i>
-        <div style="font-size:13px">Enter a search term to find insights across all source documents</div>
-        <div style="font-size:12px;color:var(--hi);margin-top:5px">Try: "tariff", "FDA", "working capital", "succession", "Tastee Choice"</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px">
-          <div class="sugg" onclick="quickSearch('tariff')">tariff</div>
-          <div class="sugg" onclick="quickSearch('FDA')">FDA alert</div>
-          <div class="sugg" onclick="quickSearch('margin')">margins</div>
-          <div class="sugg" onclick="quickSearch('succession')">succession</div>
-          <div class="sugg" onclick="quickSearch('Tastee Choice')">Tastee Choice</div>
-          <div class="sugg" onclick="quickSearch('working capital')">working capital</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="sec-upload" class="sec pg">
-  <div class="synthesis-section">
-    <div class="syn-title">Report ingestion pipeline</div>
-    <div class="upload-zone" id="upload-zone" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)" onclick="document.getElementById('file-input').click()">
-      <input type="file" id="file-input" class="file-input" accept=".txt" multiple onchange="handleFileSelect(this.files)">
-      <i class="ti ti-upload upload-icon" aria-hidden="true"></i>
-      <div class="upload-title">Drop consultant reports here</div>
-      <div class="upload-sub">Accepts .txt files · Max 10MB each · Up to 10 files</div>
-      <div class="upload-btn">Choose files</div>
-    </div>
-    <div class="proc-list" id="proc-list">
-      <div class="proc-item">
-        <div class="proc-icon done"><i class="ti ti-check" aria-hidden="true"></i></div>
-        <div class="proc-info">
-          <div class="proc-name">Choice_Group_Intelligence.md</div>
-          <div class="proc-status">Processed · 1,994 lines · 40+ sources extracted · Embeddings stored</div>
-        </div>
-        <span style="font-size:10px;padding:2px 8px;background:var(--gb);color:var(--gdt);border:0.5px solid var(--gt);border-radius:11px;font-weight:500">Complete</span>
-      </div>
-    </div>
-  </div>
-  <div class="synthesis-section">
-    <div class="syn-title">Processing pipeline status</div>
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:16px 18px">
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
-        <div style="text-align:center">
-          <div style="font-size:22px;font-weight:500;color:var(--tx)">1</div>
-          <div style="font-size:11px;color:var(--mu);margin-top:2px">Reports ingested</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:22px;font-weight:500;color:var(--tx)">247</div>
-          <div style="font-size:11px;color:var(--mu);margin-top:2px">Insights extracted</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:22px;font-weight:500;color:var(--tx)">12</div>
-          <div style="font-size:11px;color:var(--mu);margin-top:2px">Sections mapped</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:22px;font-weight:500;color:var(--tx)">2</div>
-          <div style="font-size:11px;color:var(--mu);margin-top:2px">Contradictions found</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="sec-exec" class="sec pg">
-  <div style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--bord)">Executive Summary</div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">Revenue FY25</div><div style="font-size:16px;font-weight:500;color:var(--tx)">₹1,970 Cr</div><div style="font-size:11px;color:var(--hi);margin-top:2px">~$235M · +7.34%</div></div>
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">PBILDT Margin</div><div style="font-size:16px;font-weight:500;color:var(--tx)">7.24%</div><div style="font-size:11px;color:var(--hi);margin-top:2px">Industry avg 10–12%</div></div>
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">Free Cash</div><div style="font-size:16px;font-weight:500;color:var(--tx)">₹27 Cr</div><div style="font-size:11px;color:var(--hi);margin-top:2px">Very tight headroom</div></div>
-  </div>
-  <div style="background:var(--ab);border:0.5px solid var(--at);border-radius:var(--border-radius-lg);padding:14px 18px"><div style="font-size:13px;color:var(--adt);line-height:1.6"><strong style="color:var(--adt)">The window for Path A is closing.</strong> Transformation upside ₹1,500–2,500 Cr vs decline scenario ₹200–500 Cr or liquidation. Decisive board action required now.</div></div>
-</div>
-
-<div id="sec-risks" class="sec pg">
-  <div style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--bord)">Key Risks — 3 Critical · 5 High</div>
-  <div style="display:flex;flex-direction:column;gap:8px">
-    <div style="background:var(--surf);border:0.5px solid var(--rt);border-radius:var(--border-radius-lg);padding:14px 16px"><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:4px">FDA Import Alert 16-129 + TVPRA Forced Labor Listing</div><div style="font-size:12px;color:var(--mu);line-height:1.55">Active regulatory blocks on Amalapuram facility. All product detained at US entry. Compounding legal, reputational, and market access risk. Retailer delisting is a live tail risk.</div><span style="font-size:10px;padding:2px 7px;background:var(--rb);color:var(--rdt);border:0.5px solid var(--rt);border-radius:11px;font-weight:500;display:inline-block;margin-top:7px">Critical · Act Now</span></div>
-    <div style="background:var(--surf);border:0.5px solid var(--rt);border-radius:var(--border-radius-lg);padding:14px 16px"><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:4px">US Tariff Escalation: 58.26% vs Ecuador 0%</div><div style="font-size:12px;color:var(--mu);line-height:1.55">Structural uncompetitiveness in the primary market. Ecuador tariff-free, Indonesia 2.99%, Vietnam 25.76%. Without diversification this is permanent.</div><span style="font-size:10px;padding:2px 7px;background:var(--rb);color:var(--rdt);border:0.5px solid var(--rt);border-radius:11px;font-weight:500;display:inline-block;margin-top:7px">Critical · Structural</span></div>
-    <div style="background:var(--surf);border:0.5px solid var(--at);border-radius:var(--border-radius-lg);padding:14px 16px"><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:4px">Key-person dependency: Jose Thomas (70+), no succession plan</div><div style="font-size:12px;color:var(--mu);line-height:1.55">Running business since 1966. No professional CEO, no independent board. Dealbreaker for any PE/IPO transaction.</div><span style="font-size:10px;padding:2px 7px;background:var(--ab);color:var(--adt);border:0.5px solid var(--at);border-radius:11px;font-weight:500;display:inline-block;margin-top:7px">High · Long-term</span></div>
-  </div>
-</div>
-
-<div id="sec-oppty" class="sec pg">
-  <div style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--bord)">Opportunities — ₹1,500–2,500 Cr Upside</div>
-  <div style="display:flex;flex-direction:column;gap:8px">
-    <div style="background:var(--surf);border:0.5px solid var(--gt);border-radius:var(--border-radius-lg);padding:14px 16px"><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:4px">Resolve FDA Import Alert — immediate valuation uplift 15–20%</div><div style="font-size:12px;color:var(--mu);line-height:1.55">Single highest-impact action. Each month of delay costs revenue and credibility. Engage FDA with documented remediation roadmap.</div><span style="font-size:10px;padding:2px 7px;background:var(--rb);color:var(--rdt);border:0.5px solid var(--rt);border-radius:11px;font-weight:500;display:inline-block;margin-top:7px">Act Now · 30 Days</span></div>
-    <div style="background:var(--surf);border:0.5px solid var(--gt);border-radius:var(--border-radius-lg);padding:14px 16px"><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:4px">Grow Tastee Choice to $100M+ standalone brand</div><div style="font-size:12px;color:var(--mu);line-height:1.55">Decades of US retail equity. Diaspora premium markets, foodservice, DTC e-commerce all underexploited. Estimated $30–50M revenue upside.</div><span style="font-size:10px;padding:2px 7px;background:var(--gb);color:var(--gdt);border:0.5px solid var(--gt);border-radius:11px;font-weight:500;display:inline-block;margin-top:7px">High Potential</span></div>
-    <div style="background:var(--surf);border:0.5px solid var(--gt);border-radius:var(--border-radius-lg);padding:14px 16px"><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:4px">Maximize PLI scheme — ₹67 Cr remaining entitlement</div><div style="font-size:12px;color:var(--mu);line-height:1.55">Effectively risk-free cash flow if compliance maintained. Bapatla facility is PLI-eligible. Commission before window closes.</div><span style="font-size:10px;padding:2px 7px;background:var(--gb);color:var(--gdt);border:0.5px solid var(--gt);border-radius:11px;font-weight:500;display:inline-block;margin-top:7px">Government Incentive</span></div>
-  </div>
-</div>
-
-<div id="sec-fin" class="sec pg">
-  <div style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--bord)">Financial Impact</div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">Revenue FY25</div><div style="font-size:16px;font-weight:500;color:var(--tx)">₹1,970 Cr</div></div>
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">Net Margin</div><div style="font-size:16px;font-weight:500;color:var(--tx)">2.75%</div></div>
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">Gearing</div><div style="font-size:16px;font-weight:500;color:var(--tx)">2.05x</div></div>
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">PBILDT</div><div style="font-size:16px;font-weight:500;color:var(--tx)">7.24%</div></div>
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">Free Cash</div><div style="font-size:16px;font-weight:500;color:var(--tx)">₹27 Cr</div></div>
-    <div style="background:var(--surf2);border-radius:8px;padding:11px 13px"><div style="font-size:11px;color:var(--mu);margin-bottom:3px">Open Charges</div><div style="font-size:16px;font-weight:500;color:var(--tx)">₹418 Cr</div></div>
-  </div>
-</div>
-
-<div id="sec-reco" class="sec pg">
-  <div style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--bord)">Strategic Recommendations</div>
-  <div style="display:flex;flex-direction:column;gap:8px">
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;gap:12px;align-items:flex-start"><div style="width:22px;height:22px;background:var(--rb);color:var(--rdt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px">1</div><div><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:3px">Commission independent labor and food safety audits</div><div style="font-size:12px;color:var(--mu)">Within 30 days. Non-negotiable prerequisite for FDA remediation and retailer conversations.</div></div></div>
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;gap:12px;align-items:flex-start"><div style="width:22px;height:22px;background:var(--rb);color:var(--rdt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px">2</div><div><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:3px">Engage Tier-1 crisis communications firm</div><div style="font-size:12px;color:var(--mu)">Immediately. Outlaw Ocean digital record requires proactive narrative management before any retailer meetings.</div></div></div>
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;gap:12px;align-items:flex-start"><div style="width:22px;height:22px;background:var(--ab);color:var(--adt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px">3</div><div><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:3px">Appoint 2 independent directors</div><div style="font-size:12px;color:var(--mu)">Within 60 days. Target: former FDA executive + US FMCG board member. Governance premium 15–20% on enterprise value.</div></div></div>
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;gap:12px;align-items:flex-start"><div style="width:22px;height:22px;background:var(--ab);color:var(--adt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px">4</div><div><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:3px">Present remediation roadmap to Aldi, Wakefern, AWG</div><div style="font-size:12px;color:var(--mu)">Within 60 days. Proactive, not reactive. A single major delisting could trigger a covenant breach.</div></div></div>
-    <div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;gap:12px;align-items:flex-start"><div style="width:22px;height:22px;background:var(--ab);color:var(--adt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;margin-top:1px">5</div><div><div style="font-size:13px;font-weight:500;color:var(--tx);margin-bottom:3px">Begin EU/UK market entry planning</div><div style="font-size:12px;color:var(--mu)">Within 90 days. FTA negotiation window is open. Target: US concentration below 70% within 3 years.</div></div></div>
-  </div>
-</div>
-
-<div id="sec-action" class="sec pg">
-  <div style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--mu);margin-bottom:12px;padding-bottom:8px;border-bottom:0.5px solid var(--bord)">Action Plan — 4-Phase Roadmap</div>
-  <div style="display:flex;flex-direction:column;gap:8px">
-    <div style="display:flex;gap:14px;padding:10px 0;border-bottom:0.5px solid var(--bord)"><div style="font-size:11px;color:var(--mu);white-space:nowrap;width:72px;padding-top:1px">0–30 days</div><div style="width:8px;height:8px;border-radius:50%;background:var(--rd);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:13px;font-weight:500;color:var(--tx)">Commission audits + engage crisis comms</div><div style="font-size:11px;color:var(--mu);margin-top:2px">Route all US exports through Bapatla + Pittston · Begin FDA documentation</div></div></div>
-    <div style="display:flex;gap:14px;padding:10px 0;border-bottom:0.5px solid var(--bord)"><div style="font-size:11px;color:var(--mu);white-space:nowrap;width:72px;padding-top:1px">30–60 days</div><div style="width:8px;height:8px;border-radius:50%;background:var(--rd);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:13px;font-weight:500;color:var(--tx)">Appoint 2 independent directors</div><div style="font-size:11px;color:var(--mu);margin-top:2px">Present retailer remediation roadmap · Initiate succession planning</div></div></div>
-    <div style="display:flex;gap:14px;padding:10px 0;border-bottom:0.5px solid var(--bord)"><div style="font-size:11px;color:var(--mu);white-space:nowrap;width:72px;padding-top:1px">60–90 days</div><div style="width:8px;height:8px;border-radius:50%;background:var(--ad);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:13px;font-weight:500;color:var(--tx)">Begin EU/UK market entry planning</div><div style="font-size:11px;color:var(--mu);margin-top:2px">Launch SKU rationalization · Maximize PLI scheme (₹67 Cr)</div></div></div>
-    <div style="display:flex;gap:14px;padding:10px 0;border-bottom:0.5px solid var(--bord)"><div style="font-size:11px;color:var(--mu);white-space:nowrap;width:72px;padding-top:1px">90–180 days</div><div style="width:8px;height:8px;border-radius:50%;background:var(--ad);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:13px;font-weight:500;color:var(--tx)">Hire professional CEO / COO</div><div style="font-size:11px;color:var(--mu);margin-top:2px">Working capital optimization · ASC certification process · Analytics build</div></div></div>
-    <div style="display:flex;gap:14px;padding:10px 0"><div style="font-size:11px;color:var(--mu);white-space:nowrap;width:72px;padding-top:1px">Year 3</div><div style="width:8px;height:8px;border-radius:50%;background:var(--gd);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:13px;font-weight:500;color:var(--tx)">US concentration below 70%</div><div style="font-size:11px;color:var(--mu);margin-top:2px">Tastee Choice $100M+ · Gearing below 1.2x · PE/IPO ready · Enterprise value ₹1,500–2,500 Cr</div></div></div>
-  </div>
-</div>
-
-<div id="ceo-mode-feed" class="ceo-feed">
-  <div class="ceo-hdr-card">
-    <div class="ceo-hdr-eye">CEO Mode · composite score ≥ 3.2 · urgency = immediate</div>
-    <div class="ceo-hdr-stmt">Operationally resilient but <strong style="color:#e8d4a8">strategically exposed</strong> — 3 critical actions required now to prevent permanent value impairment.</div>
-  </div>
-  <div class="ceo-card urg">
-    <div class="ceo-card-top"><div class="ceo-card-title">FDA Import Alert + TVPRA forced labor — active blocks on US imports</div><div class="ceo-metas"><span style="font-size:10px;padding:2px 7px;background:var(--rb);color:var(--rdt);border:0.5px solid var(--rt);border-radius:11px;font-weight:500">NOW</span><span style="font-size:10px;padding:2px 7px;background:var(--rb);color:var(--rdt);border:0.5px solid var(--rt);border-radius:11px;font-weight:500">$$$</span><span style="font-size:13px;color:var(--rd)">↓</span></div></div>
-    <div class="ceo-why">Amalapuram product is detained at US entry. Every week of delay costs revenue and credibility with Aldi, Wakefern, AWG. Retailer delisting is a live tail risk.</div>
-    <div class="ceo-act">Act: Commission independent audit within 30 days. Engage crisis comms firm immediately.</div>
-    <div class="ceo-foot">FDA Import Alert 16-129 · DOL/TVPRA · NBC News · HIGH confidence</div>
-  </div>
-  <div class="ceo-card urg">
-    <div class="ceo-card-top"><div class="ceo-card-title">58.26% US tariff vs Ecuador at 0% — structural uncompetitiveness</div><div class="ceo-metas"><span style="font-size:10px;padding:2px 7px;background:var(--rb);color:var(--rdt);border:0.5px solid var(--rt);border-radius:11px;font-weight:500">NOW</span><span style="font-size:10px;padding:2px 7px;background:var(--rb);color:var(--rdt);border:0.5px solid var(--rt);border-radius:11px;font-weight:500">$$$</span><span style="font-size:13px;color:var(--rd)">↓</span></div></div>
-    <div class="ceo-why">This is structural, not cyclical. Ecuador and Indonesia are taking US market share at prices Choice cannot match. Without diversification, revenue base erodes permanently.</div>
-    <div class="ceo-act">Act: Begin EU/UK market entry planning within 90 days. Engage SEAI/MPEDA on bilateral tariff negotiation.</div>
-    <div class="ceo-foot">US Federal Register · ICRIER · Shrimp Insights · HIGH confidence</div>
-  </div>
-  <div class="ceo-card urg">
-    <div class="ceo-card-top"><div class="ceo-card-title">No independent directors on a ₹2,000 Cr board — governance dealbreaker</div><div class="ceo-metas"><span style="font-size:10px;padding:2px 7px;background:var(--ab);color:var(--adt);border:0.5px solid var(--at);border-radius:11px;font-weight:500">THIS WEEK</span><span style="font-size:10px;padding:2px 7px;background:var(--ab);color:var(--adt);border:0.5px solid var(--at);border-radius:11px;font-weight:500">$$</span><span style="font-size:13px;color:var(--rd)">↓</span></div></div>
-    <div class="ceo-why">Every PE investor, strategic partner, and major retailer will flag the all-family board. Fastest fixable issue on this list — blocks every other strategic option until resolved.</div>
-    <div class="ceo-act">Act: Appoint 2 independent directors within 60 days. Target: former FDA executive + US FMCG board member.</div>
-    <div class="ceo-foot">CARE Ratings · D&B · Three consultant assessments · HIGH confidence</div>
-  </div>
-  <div class="ceo-card">
-    <div class="ceo-card-top"><div class="ceo-card-title">Margin gap 3–5 pts vs peers — ₹55–90 Cr left on table annually</div><div class="ceo-metas"><span style="font-size:10px;padding:2px 7px;background:var(--ab);color:var(--adt);border:0.5px solid var(--at);border-radius:11px;font-weight:500">THIS MONTH</span><span style="font-size:10px;padding:2px 7px;background:var(--ab);color:var(--adt);border:0.5px solid var(--at);border-radius:11px;font-weight:500">$$</span><span style="font-size:13px;color:var(--ad)">→</span></div></div>
-    <div class="ceo-why">7.24% PBILDT vs 10–12% industry average. SKU rationalization and freight optimization are the two fastest levers — both achievable within 90 days.</div>
-    <div class="ceo-act">Act: Commission SKU-level P&L analysis. Implement AI-driven freight optimization.</div>
-    <div class="ceo-foot">CARE Ratings · Consultant assessments · MEDIUM confidence</div>
-  </div>
-</div>
-
-</div>
-</div>
-
-<script>
-var ceoOn = false;
-var activeSection = 'overview';
-var isLoading = false;
-
-var KNOWLEDGE = [
-  {id:1,section:'Risks',title:'FDA Import Alert 16-129 active on Amalapuram facility',excerpt:'All product from Choice Canning Unit II (Amalapuram) is detained at US entry under Import Alert 16-129. This is the primary regulatory crisis and must be resolved before any strategic transactions.',keywords:['FDA','import alert','amalapuram','regulatory','alert']},
-  {id:2,section:'Risks',title:'TVPRA forced labor listing — compounding reputational risk',excerpt:'DOL/TVPRA forced labor allegations create compounding legal, reputational, and market access risk. The Tastee Choice brand faces retailer delisting if this escalates.',keywords:['TVPRA','forced labor','labor','DOL','reputational']},
-  {id:3,section:'Risks',title:'US tariff escalation: 58.26% combined anti-dumping + CVD',excerpt:'Indian shrimp structurally uncompetitive vs Ecuador (0%), Indonesia (2.99%), Vietnam (25.76%). Combined anti-dumping and countervailing duties make Indian shrimp uneconomic in the primary market.',keywords:['tariff','anti-dumping','CVD','Ecuador','Indonesia','Vietnam','duties']},
-  {id:4,section:'Financial',title:'PBILDT margin 7.24% vs industry average 10–12%',excerpt:'The margin gap represents ₹55–90 Cr of annual profit left on the table. SKU rationalization and Bapatla facility optimization are the fastest paths to recovery.',keywords:['margin','PBILDT','profit','financial','performance']},
-  {id:5,section:'Financial',title:'Free cash headroom: only ₹27 Cr against ₹1,970 Cr revenue',excerpt:'Very tight financial cushion. Gearing at 2.05x with paid-up capital of ₹9.99 Cr against ₹1,970 Cr revenue — a 200x revenue-to-capital ratio. Any shock could trigger a liquidity crisis.',keywords:['cash','liquidity','gearing','leverage','financial','headroom']},
-  {id:6,section:'Opportunities',title:'Working capital optimization — ₹50–75 Cr recoverable in 90 days',excerpt:'Working capital cycle is 90–120 days with cash trapped exceeding 10–15% of revenue. SKU rationalization, payment term renegotiation, and freight optimization can free ₹50–75 Cr without CapEx.',keywords:['working capital','cash','optimization','90 days','SKU']},
-  {id:7,section:'Opportunities',title:'PLI scheme — ₹67 Cr remaining entitlement',excerpt:'Production Linked Incentive scheme offers ₹67 Cr in remaining entitlements. Risk-free cash flow if compliance is maintained. Bapatla facility is PLI-eligible.',keywords:['PLI','scheme','incentive','government','Bapatla']},
-  {id:8,section:'Opportunities',title:'Tastee Choice brand — decades of US retail equity, underexploited',excerpt:'Tastee Choice is the company\'s most defensible asset. Extending into foodservice, DTC e-commerce, and ethnic diaspora markets could add $30–50M revenue. Currently under-leveraged as a commoditized shrimp label.',keywords:['Tastee Choice','brand','retail','diaspora','foodservice','DTC']},
-  {id:9,section:'Governance',title:'No independent directors — all four are family or close associates',excerpt:'For a ₹2,000 Cr company, an all-family board is a red flag for investors, regulators, and retail partners. Minimum 2 independent directors required within 60 days.',keywords:['governance','directors','board','family','independent']},
-  {id:10,section:'Governance',title:'Jose Thomas succession — extreme key-person risk, 70+, no plan',excerpt:'Running business since 1966. No succession plan, no professional CEO, no independent oversight. This is the largest long-term enterprise risk on the board.',keywords:['succession','Jose Thomas','key person','CEO','leadership']},
-  {id:11,section:'Operations',title:'Bapatla facility — PLI-eligible, new, clean strategic asset',excerpt:'Newer processing facility in Andhra Pradesh eligible for PLI incentives. Should be primary production base for US-bound exports while Amalapuram remediation proceeds.',keywords:['Bapatla','facility','operations','PLI','Andhra Pradesh']},
-  {id:12,section:'Market',title:'Ecuador zero-tariff position is the structural competitive threat',excerpt:'Ecuador\'s 0% tariff on US shrimp is a structural disadvantage for Indian exporters. The strategic response is market diversification, not pure price competition.',keywords:['Ecuador','tariff','competition','market','shrimp']},
-  {id:13,section:'Market',title:'EU/UK market entry — structural window via FTA negotiations',excerpt:'India-UK FTA and India-EU FTA negotiations present a structural window. EU currently subjects Indian seafood to 50% testing — FTA provisions could eliminate this barrier.',keywords:['EU','UK','Europe','FTA','market entry','diversification']},
-  {id:14,section:'Financial',title:'Revenue trend: FY23 ₹1,980 Cr → FY24 ₹1,782 Cr → FY25 ₹1,970 Cr',excerpt:'FY24 saw a ~10% decline driven by tariff headwinds and regulatory issues. FY25 provisional data shows recovery (+7.34%) but advisors flag this as fragile, contingent on FDA resolution.',keywords:['revenue','FY23','FY24','FY25','growth','trend']},
-  {id:15,section:'Risks',title:'Retailer concentration: Aldi, Wakefern, AWG — delisting is a live tail risk',excerpt:'Heavy reliance on a small number of US retail partners compounds the regulatory risk. A single major delisting could trigger a covenant breach given current cash headroom.',keywords:['retailer','Aldi','Wakefern','AWG','concentration','delisting']}
-];
-
-var CONTEXT = `You are the AI Synthesis Engine for Choice Group's executive intelligence dashboard. You have deep knowledge of this Indian seafood conglomerate.
-
-KEY FACTS:
-- Choice Trading Corporation / Choice Canning Co. — family-owned Indian seafood conglomerate
-- Revenue: $235M (₹1,970 Cr FY25), up 7.34% YoY
-- Net margin: 2.75%, PBILDT: 7.24% (industry avg 10-12%)
-- Gearing: 2.05x, free cash: only ₹27 Cr
-- Credit rating: BBB (CARE Stable)
-- 95%+ revenue from US shrimp exports — extreme concentration risk
-- Active FDA Import Alert 16-129 on Amalapuram facility
-- TVPRA forced labor listing (DOL)
-- US tariff: 58.26% vs Ecuador 0%, Indonesia 2.99%
-- Outlaw Ocean / NBC News investigative coverage — reputational risk
-- No independent directors — all 4 directors are family/associates
-- Jose Thomas (founder, 70+) — no succession plan
-- Top retail partners: Aldi, Wakefern, AWG — delisting is a live risk
-- Path A (transformation): ₹1,500-2,500 Cr enterprise value
-- Path B (decline/inaction): ₹200-500 Cr or liquidation
-- PLI scheme: ₹67 Cr remaining entitlement
-- Bapatla facility: PLI-eligible, clean asset
-- Pittston PA: USDA/SQF certified US facility
-- Tastee Choice brand: decades of US retail equity, underexploited
-- Working capital opportunity: ₹50-75 Cr recoverable in 90 days
-- SKU rationalization: bottom 30-40% create 3-6% revenue leakage
-- Sources: CARE Ratings, FDA records, DOL/TVPRA, Outlaw Ocean Project, NBC News, US Federal Register, ICRIER, Shrimp Insights, Volza, D&B, 40+ sources
-
-INSTRUCTIONS: Give concise, board-level answers in 2-4 sentences. Be direct. Always reference specific numbers. Flag confidence level at the end as [HIGH confidence], [MEDIUM confidence], or [LOW confidence — limited source data]. Never make up numbers not in the above facts. If asked about something outside your knowledge, say so clearly.`;
-
-function nav(id) {
-  if (ceoOn) return;
-  document.querySelectorAll('.sec').forEach(function(s){ s.classList.remove('act'); });
-  var t = document.getElementById('sec-'+id);
-  if (t) t.classList.add('act');
-  document.querySelectorAll('.ni').forEach(function(n){ n.classList.remove('act'); });
-  var ni = document.getElementById('ni-'+id);
-  if (ni) ni.classList.add('act');
-  activeSection = id;
-  document.getElementById('inline-search-results').style.display = 'none';
-  document.getElementById('global-search').value = '';
-}
-
-function toggleCEO() {
-  ceoOn = !ceoOn;
-  var pill = document.getElementById('ceo-pill');
-  var toggle = document.getElementById('ceo-toggle');
-  var feed = document.getElementById('ceo-mode-feed');
-  pill.classList.toggle('on', ceoOn);
-  toggle.setAttribute('aria-pressed', String(ceoOn));
-  if (ceoOn) {
-    document.querySelectorAll('.sec').forEach(function(s){ s.classList.remove('act'); });
-    feed.classList.add('act');
-  } else {
-    feed.classList.remove('act');
-    nav(activeSection);
-  }
-}
-
-function searchKnowledge(q, sectionFilter) {
-  if (!q || q.length < 2) return [];
-  var terms = q.toLowerCase().split(/\s+/);
-  return KNOWLEDGE.filter(function(item) {
-    if (sectionFilter && item.section !== sectionFilter) return false;
-    var text = (item.title + ' ' + item.excerpt + ' ' + item.keywords.join(' ')).toLowerCase();
-    return terms.some(function(t){ return text.includes(t); });
-  }).map(function(item) {
-    var hl = item.excerpt;
-    terms.forEach(function(t){
-      if (t.length > 2) {
-        var re = new RegExp('('+t+')', 'gi');
-        hl = hl.replace(re, '<mark>$1</mark>');
-      }
-    });
-    return Object.assign({}, item, {highlighted: hl});
-  });
-}
-
-function handleGlobalSearch(val) {
-  var isr = document.getElementById('inline-search-results');
-  var list = document.getElementById('isr-list');
-  if (!val || val.length < 2) { isr.style.display = 'none'; return; }
-  var results = searchKnowledge(val, '');
-  if (!results.length) { isr.style.display = 'none'; return; }
-  isr.style.display = 'block';
-  list.innerHTML = results.slice(0, 5).map(function(r) {
-    var sectionColor = {Risks:'var(--rb)',Financial:'var(--bb)',Opportunities:'var(--gb)',Governance:'var(--ab)',Operations:'var(--surf2)',Market:'#eef1fb'}[r.section] || 'var(--surf2)';
-    var sectionText = {Risks:'var(--rdt)',Financial:'var(--bdt)',Opportunities:'var(--gdt)',Governance:'var(--adt)',Operations:'var(--mu)',Market:'#0c447c'}[r.section] || 'var(--mu)';
-    return '<div style="padding:8px 6px;border-bottom:0.5px solid var(--bord);cursor:pointer" onclick="closeSearch()" class="sr-item" style="border:none;border-radius:0;padding:8px 6px">' +
-      '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:4px">' +
-      '<span style="font-size:13px;font-weight:500;color:var(--tx);flex:1;line-height:1.4">' + r.title + '</span>' +
-      '<span style="font-size:10px;padding:2px 7px;border-radius:11px;font-weight:500;background:'+sectionColor+';color:'+sectionText+';border:0.5px solid var(--bord);white-space:nowrap">' + r.section + '</span>' +
-      '</div>' +
-      '<div style="font-size:12px;color:var(--mu);line-height:1.5">' + r.highlighted + '</div>' +
-      '</div>';
-  }).join('');
-}
-
-function closeSearch() {
-  document.getElementById('inline-search-results').style.display = 'none';
-  document.getElementById('global-search').value = '';
-}
-
-function doSearch() {
-  var val = document.getElementById('global-search').value;
-  if (!val) return;
-  nav('search');
-  setTimeout(function(){
-    document.getElementById('full-search-input').value = val;
-    fullSearch(val);
-  }, 50);
-}
-
-function fullSearch(val) {
-  var area = document.getElementById('search-results-area');
-  var filter = document.getElementById('section-filter').value;
-  if (!val || val.length < 2) {
-    area.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--mu)"><i class="ti ti-search" style="font-size:28px;display:block;margin-bottom:10px;color:var(--hi)" aria-hidden="true"></i><div style="font-size:13px">Enter a search term to find insights</div></div>';
-    return;
-  }
-  var results = searchKnowledge(val, filter);
-  if (!results.length) {
-    area.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--mu)"><i class="ti ti-mood-empty" style="font-size:28px;display:block;margin-bottom:10px;color:var(--hi)" aria-hidden="true"></i><div style="font-size:13px">No results found for "' + val + '"</div><div style="font-size:12px;color:var(--hi);margin-top:4px">Try: tariff, FDA, margin, succession, Tastee Choice</div></div>';
-    return;
-  }
-  area.innerHTML = '<div style="font-size:12px;color:var(--mu);margin-bottom:10px">' + results.length + ' result' + (results.length !== 1 ? 's' : '') + '</div>' +
-    results.map(function(r) {
-      var sectionColor = {Risks:'var(--rb)',Financial:'var(--bb)',Opportunities:'var(--gb)',Governance:'var(--ab)',Operations:'var(--surf2)',Market:'#eef1fb'}[r.section] || 'var(--surf2)';
-      var sectionText = {Risks:'var(--rdt)',Financial:'var(--bdt)',Opportunities:'var(--gdt)',Governance:'var(--adt)',Operations:'var(--mu)',Market:'#0c447c'}[r.section] || 'var(--mu)';
-      return '<div style="background:var(--surf);border:0.5px solid var(--bord);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:8px">' +
-        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px">' +
-        '<div style="font-size:13px;font-weight:500;color:var(--tx);line-height:1.4">' + r.title + '</div>' +
-        '<span style="font-size:10px;padding:2px 7px;border-radius:11px;font-weight:500;background:'+sectionColor+';color:'+sectionText+';border:0.5px solid var(--bord);white-space:nowrap">' + r.section + '</span>' +
-        '</div>' +
-        '<div style="font-size:12px;color:var(--mu);line-height:1.55">' + r.highlighted + '</div>' +
-        '<div style="font-size:10px;color:var(--hi);margin-top:6px">Source: Choice Group Intelligence Briefing · 40+ sources</div>' +
-        '</div>';
-    }).join('');
-}
-
-function quickSearch(term) {
-  document.getElementById('full-search-input').value = term;
-  fullSearch(term);
-}
-
-function askSugg(el) {
-  var q = el.textContent;
-  document.getElementById('chat-input').value = q;
-  el.parentElement.style.display = 'none';
-  sendChat();
-}
-
-function addMsg(role, text) {
-  var area = document.getElementById('chat-area');
-  var div = document.createElement('div');
-  div.className = 'msg ' + role;
-  var initials = role === 'ai' ? 'AI' : 'You';
-  div.innerHTML = '<div class="msg-avatar ' + role + '">' + initials + '</div><div class="msg-bubble">' + text + '</div>';
-  area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
-  return div;
-}
-
-function showTyping() {
-  var area = document.getElementById('chat-area');
-  var div = document.createElement('div');
-  div.className = 'msg ai';
-  div.id = 'typing-indicator';
-  div.innerHTML = '<div class="msg-avatar ai">AI</div><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
-  area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
-}
-
-function removeTyping() {
-  var t = document.getElementById('typing-indicator');
-  if (t) t.remove();
-}
-
-function sendChat() {
-  if (isLoading) return;
-  var input = document.getElementById('chat-input');
-  var q = input.value.trim();
-  if (!q) return;
-  input.value = '';
-  addMsg('user', q);
-  document.getElementById('send-btn').disabled = true;
-  isLoading = true;
-  showTyping();
-  callClaude(q);
-}
-
-function callClaude(question) {
-  fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      system: CONTEXT,
-      messages: [{role: 'user', content: question}]
-    })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data) {
-    removeTyping();
-    var text = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : 'I was unable to retrieve a response. Please try again.';
-    addMsg('ai', text);
-    isLoading = false;
-    document.getElementById('send-btn').disabled = false;
-  })
-  .catch(function(err) {
-    removeTyping();
-    addMsg('ai', 'Connection error. Please try again. (The AI synthesis engine requires network access to the Anthropic API.)');
-    isLoading = false;
-    document.getElementById('send-btn').disabled = false;
-  });
-}
-
-function handleDrop(event) {
-  event.preventDefault();
-  document.getElementById('upload-zone').classList.remove('drag');
-  var files = event.dataTransfer.files;
-  handleFileSelect(files);
-}
-
-function handleFileSelect(files) {
-  var list = document.getElementById('proc-list');
-  Array.from(files).forEach(function(file) {
-    if (!file.name.endsWith('.txt') && !file.name.endsWith('.md')) {
-      return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neilbuilds</title>
+  <meta name="description" content="Neil B. — building small, fun web apps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      line-height: 1.6;
     }
-    var item = document.createElement('div');
-    item.className = 'proc-item';
-    item.innerHTML = '<div class="proc-icon proc"><i class="ti ti-loader" aria-hidden="true"></i></div>' +
-      '<div class="proc-info"><div class="proc-name">' + file.name + '</div>' +
-      '<div class="proc-status">Validating...</div>' +
-      '<div class="proc-bar-wrap"><div class="proc-bar" id="bar-' + file.name.replace(/\./g,'_') + '" style="width:0%"></div></div></div>' +
-      '<span style="font-size:10px;padding:2px 8px;background:var(--bb);color:var(--bdt);border:0.5px solid var(--bt);border-radius:11px;font-weight:500">Processing</span>';
-    list.appendChild(item);
-    var barId = 'bar-' + file.name.replace(/\./g,'_');
-    var pct = 0;
-    var interval = setInterval(function() {
-      pct += Math.round(Math.random() * 18 + 5);
-      if (pct >= 100) { pct = 100; clearInterval(interval); finishProc(item, file.name); }
-      var bar = document.getElementById(barId);
-      if (bar) bar.style.width = Math.min(pct, 95) + '%';
-    }, 300);
-  });
-}
+    .container { max-width: 640px; width: 100%; }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 0%, #888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    p.tagline {
+      font-size: 1.25rem;
+      color: #a0a0a0;
+      margin-bottom: 3rem;
+    }
+    .section {
+      border-top: 1px solid #222;
+      padding: 1.75rem 0;
+    }
+    .section h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .links a, .links span {
+      color: #f5f5f5;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      width: fit-content;
+      font-family: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      position: relative;
+      border-bottom: none;
+    }
+    .links a::before {
+      content: "→";
+      color: #555;
+      transition: transform 0.2s ease, color 0.2s ease;
+      display: inline-block;
+    }
+    .links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0.25rem;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #f5f5f5;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .links a:hover::before {
+      color: #f5f5f5;
+      transform: translateX(3px);
+    }
+    .links a:hover::after {
+      transform: scaleX(1);
+    }
+    .links span.soon {
+      color: #555;
+      font-style: italic;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    .tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      background: #1a1a1a;
+      color: #888;
+      border: 1px solid #2a2a2a;
+      font-weight: 500;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #555;
+      border-top: 1px solid #222;
+      padding-top: 1.5rem;
+    }
+    footer a { color: #888; text-decoration: none; border-bottom: 1px solid #333; }
+    footer a:hover { color: #f5f5f5; border-color: #f5f5f5; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>neilbuilds</h1>
+    <p class="tagline">Small, fun web apps. Data + AI by day, side projects by night.</p>
 
-function finishProc(item, filename) {
-  item.querySelector('.proc-icon').className = 'proc-icon done';
-  item.querySelector('.proc-icon').innerHTML = '<i class="ti ti-check" aria-hidden="true"></i>';
-  item.querySelector('.proc-status').textContent = 'Processed · Embeddings stored · Insights extracted';
-  item.querySelector('.proc-bar').style.width = '100%';
-  item.querySelector('.proc-bar').style.background = 'var(--gd)';
-  item.lastElementChild.textContent = 'Complete';
-  item.lastElementChild.style.background = 'var(--gb)';
-  item.lastElementChild.style.color = 'var(--gdt)';
-  item.lastElementChild.style.borderColor = 'var(--gt)';
-}
+    <div class="section">
 
-document.addEventListener('keydown', function(e) {
-  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-    e.preventDefault();
-    document.getElementById('global-search').focus();
-  }
-  if (e.key === 'Escape') {
-    document.getElementById('inline-search-results').style.display = 'none';
-    document.getElementById('global-search').blur();
-  }
-});
-</script>
+      <div class="section">
+  <h2>Coming Soon</h2>
+  <div class="links">
+    <span class="soon">Box Office Cinemas — Concept Website</span>
+    <span class="soon">Children's Books — Kaira &amp; the Magic Stage</span>
+  </div>
+</div>
+      
+      <h2>Movies</h2>
+      <div class="links">
+        <a href="https://d3.neilbuilds.com/" target="_blank" rel="noopener">Drishyam 3 — US Release</a>
+        <a href="https://d3.neilbuilds.com/game.html" target="_blank" rel="noopener">Drishyam 3 — The Game</a>
+        <a href="https://www.aashirvad-cinemas.com/" target="_blank" rel="noopener">Aashirvad Cinemas Concept</a>
+        <a href="https://patriot.neilbuilds.com" target="_blank" rel="noopener">Patriot — US Release</a>
+        <a href="https://patriot-mission2.vercel.app/" target="_blank" rel="noopener">Patriot — The Game</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Builds</h2>
+      <div class="links">
+        <a href="https://biblequiz.neilbuilds.com" target="_blank" rel="noopener">Bible Quiz</a>
+        <a href=" https://alexpeter.vercel.app"_blank" rel="noopener">Alex Peter Group</a>
+        <a href="https://antorubytravel.vercel.app/" target="_blank" rel="noopener">Travel Itinerary Builder</a>
+        <a href="https://littlelightco.lovable.app" target="_blank" rel="noopener">Little Light Co — Candle Website</a>
+        <a href="https://aangan-home-hub.lovable.app" target="_blank" rel="noopener">Aangan TV Android App</a>
+        <a href="https://manx-bom-command.lovable.app" target="_blank" rel="noopener">Meyers Manx BOM Intelligence Website</a>
+        <a href="https://ppl.neilbuilds.com/" target="_blank" rel="noopener">Pilot License Test App</a>
+        <a href="https://kl.budget.neilbuilds.com/" target="_blank" rel="noopener">Kerala Budget Overview</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>GPT Agents</h2>
+      <div class="links">
+        <a href="https://chatgpt.com/g/g-69e534b20ca88191b591fe06a5335966-prompt-architect" target="_blank" rel="noopener">GPT Agent Prompt Generator</a>
+        <a href="https://chatgpt.com/g/g-69deaf921bc481918caec808eb61e028-birthday-art-gpt" target="_blank" rel="noopener">GPT Agent for Birthday Greetings</a>
+        <a href="https://linkmone.com/VISHU" target="_blank" rel="noopener">GPT Agent for Custom Vishu Greetings</a>
+        <a href="https://linkmone.com/VOLT" target="_blank" rel="noopener">GPT Agent for Red Bull Style Cartoon Headshots</a>
+        <a href="https://chatgpt.com/g/g-69fd7a1e72bc8191a2cb1d575a64572f-drishyam-noir" target="_blank" rel="noopener">Drishyam Noir — Image Generator</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>RB</h2>
+      <div class="links">
+        <a href="https://rbpitwall.lovable.app/" target="_blank" rel="noopener">Pit Wall <span class="tag">internal</span></a>
+        <a href="https://rbna-ai-buildday.vercel.app" target="_blank" rel="noopener">AI Build Day — Judge Site <span class="tag">internal</span></a>
+        <a href="https://rbna.it/aibuild" target="_blank" rel="noopener">AI Build Day Results</a>
+      </div>
+    </div>
+
+    <footer>
+      <a href="https://github.com/neilbuilds" target="_blank" rel="noopener">github</a>
+    </footer>
+  </div>
+</body>
+</html>
