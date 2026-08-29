@@ -1,9 +1,18 @@
-### Hi, I'm Neil 👋
+# Road to 50 — neilbuilds.com pages
 
-I build small, fun web apps in my spare time.
-Day job: data & AI strategy at a global consumer brand.
+Publish this folder so these paths resolve exactly:
 
-**Currently shipping:** [neilbuilds.com](https://neilbuilds.com)
+- `https://www.neilbuilds.com/roadto50/`
+- `https://www.neilbuilds.com/roadto50/privacy`
+- `https://www.neilbuilds.com/roadto50/support`
 
+Use in App Store Connect:
 
-**Stack I reach for:** React · TypeScript · Tailwind · LLM APIs
+- **Privacy Policy URL:** `https://www.neilbuilds.com/roadto50/privacy`
+- **Support URL:** `https://www.neilbuilds.com/roadto50/support`
+
+## One assumption to confirm before publishing
+
+The pages currently use `support@neilbuilds.com`. Create/forward that mailbox or replace it in both HTML files with the support email you want App Store customers to use.
+
+The pages are plain static HTML/CSS and have no tracking, cookies, JavaScript, or external assets.
