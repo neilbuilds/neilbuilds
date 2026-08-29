@@ -1,18 +1,31 @@
-# Road to 50 — neilbuilds.com pages
+### Hi, I'm Neil 👋
 
-Publish this folder so these paths resolve exactly:
+I build small, useful and occasionally weird things in my spare time.  
+Day job: data & AI strategy at a global consumer brand.
 
-- `https://www.neilbuilds.com/roadto50/`
-- `https://www.neilbuilds.com/roadto50/privacy`
-- `https://www.neilbuilds.com/roadto50/support`
+**Currently shipping:** [neilbuilds.com](https://neilbuilds.com)
 
-Use in App Store Connect:
+### Recent projects
 
-- **Privacy Policy URL:** `https://www.neilbuilds.com/roadto50/privacy`
-- **Support URL:** `https://www.neilbuilds.com/roadto50/support`
+- 🏃 [Road to 50](https://neilbuilds.com/roadto50/) — Native iOS transformation & accountability app built with SwiftUI, HealthKit and Supabase
+- 🎬 [Drishyam 3 — US Release](https://d3.neilbuilds.com/) — Movie release experience, ticketing and interactive game
+- 🎯 [Bible Quiz](https://quiz.neilbuilds.com) — Multi-difficulty Bible trivia
+- ✈️ [Pilot License Test](https://ppl.neilbuilds.com/) — Study and practice app for pilot-license exams
+- 📊 [Kerala Budget Overview](https://kl.budget.neilbuilds.com/) — Interactive exploration of Kerala's state budget
+- 🤖 AI agents, image tools and experiments — because apparently I can't leave well enough alone
 
-## One assumption to confirm before publishing
+### What I'm building with
 
-The pages currently use `support@neilbuilds.com`. Create/forward that mailbox or replace it in both HTML files with the support email you want App Store customers to use.
+**Web:** React · TypeScript · Tailwind  
+**iOS:** Swift · SwiftUI · HealthKit  
+**Data / Backend:** Supabase · SQL  
+**AI:** LLM APIs · Gemini · ChatGPT
 
-The pages are plain static HTML/CSS and have no tracking, cookies, JavaScript, or external assets.
+Most projects start with:
+
+> “This would be useful. How hard could it be?”
+
+…and then somehow become a real product.
+
+🌐 [neilbuilds.com](https://neilbuilds.com)  
+💻 [github.com/neilbuilds](https://github.com/neilbuilds)
